@@ -1,0 +1,13 @@
+{
+    "nodes": {
+        "observation_75bf9682-f76f-4217-aa6d-339db22ca047": {
+            "id": "observation_75bf9682-f76f-4217-aa6d-339db22ca047",
+            "type": "ObservationNode",
+            "timestamp": "2026-02-11T18:20:51.023053",
+            "potential_intent": "Preparing to type.",
+            "ui_summary": "Desktop screenshot (size 2560x1440) captured. Focused window: \u65e0\u6807\u9898 - Notepad.",
+            "raw_signal_count": 2
+        }
+    },
+    "edges": []
+}

@@ -1,0 +1,109 @@
+{
+    "nodes": {
+        "observation_f0455fd1-7895-4735-acab-23633bf7684a": {
+            "id": "observation_f0455fd1-7895-4735-acab-23633bf7684a",
+            "type": "ObservationNode",
+            "timestamp": "2026-02-11T14:45:49.135492",
+            "potential_intent": "Write a note.",
+            "ui_summary": "User opened Notepad.",
+            "raw_signal_count": 0
+        },
+        "observation_2c3b0e12-5b61-46aa-8e60-0b3040f12ee8": {
+            "id": "observation_2c3b0e12-5b61-46aa-8e60-0b3040f12ee8",
+            "type": "ObservationNode",
+            "timestamp": "2026-02-11T14:48:00.502347",
+            "potential_intent": "Testing the AIOS framework.",
+            "ui_summary": "User is at the desktop.",
+            "raw_signal_count": 1
+        },
+        "observation_42d092b4-e3d8-450b-a245-293cd39f3a79": {
+            "id": "observation_42d092b4-e3d8-450b-a245-293cd39f3a79",
+            "type": "ObservationNode",
+            "timestamp": "2026-02-11T15:58:38.912849",
+            "potential_intent": "Preparing to type.",
+            "ui_summary": "User is viewing a new Notepad window.",
+            "raw_signal_count": 2
+        },
+        "observation_12325b7e-4448-4bac-bd1c-dd18392577ca": {
+            "id": "observation_12325b7e-4448-4bac-bd1c-dd18392577ca",
+            "type": "ObservationNode",
+            "timestamp": "2026-02-11T15:59:45.127423",
+            "potential_intent": "Preparing to type.",
+            "ui_summary": "User is viewing a new Notepad window.",
+            "raw_signal_count": 2
+        },
+        "observation_fac0937c-9683-42b1-8ba6-800fbc417587": {
+            "id": "observation_fac0937c-9683-42b1-8ba6-800fbc417587",
+            "type": "ObservationNode",
+            "timestamp": "2026-02-11T16:06:30.855025",
+            "potential_intent": "Waiting for user input.",
+            "ui_summary": "Desktop screenshot (size 2560x1440) captured. Focused window: \u7f8e\u613f\u6210\u771f by \u6d77\u96fe 11 8 11 7 1 2 1 \u623f\u95f4\u53f7\uff1a 1111 1 Hand UP Hand DOWN Cancel Swap seats with this player Move player to this seat Nominate this player \u69a8\u6c41\u673a 2 Hand UP Hand DOWN Cancel Swap seats with this player Move player to this seat Nominate this player duan.",
+            "raw_signal_count": 2
+        },
+        "observation_21b09308-c891-4811-893e-129602752c90": {
+            "id": "observation_21b09308-c891-4811-893e-129602752c90",
+            "type": "ObservationNode",
+            "timestamp": "2026-02-11T17:36:20.122219",
+            "potential_intent": "Waiting for user input.",
+            "ui_summary": "Desktop screenshot (size 2560x1440) captured. Focused window: \u6587\u672c\u7f16\u8f91\u5668.",
+            "raw_signal_count": 2
+        },
+        "observation_dab6e4fc-8b9a-4bea-adca-0fd2729d5715": {
+            "id": "observation_dab6e4fc-8b9a-4bea-adca-0fd2729d5715",
+            "type": "ObservationNode",
+            "timestamp": "2026-02-11T17:47:47.351931",
+            "potential_intent": "Waiting for user input.",
+            "ui_summary": "Desktop screenshot (size 2560x1440) captured. Focused window: \u7f8e\u613f\u6210\u771f by \u6d77\u96fe 11 11 11 7 1 2 1 \u623f\u95f4\u53f7\uff1a 1111 \u590d\u76d8\u89c6\u89d2 1 5. \u6bcf\u4e2a\u767d\u5929\uff0c\u4f60\u53ef\u4ee5\u516c\u5f00\u53d1\u8868\u4e00\u4e2a\u58f0\u660e\u3002\u5728\u5f53\u665a\uff0c\u5982\u679c\u8be5\u58f0\u660e\u662f\u6b63\u786e\u7684\uff0c\u4f1a\u6709\u4e00\u540d\u73a9\u5bb6\u6b7b\u4ea1\u3002 Hand UP Hand DOWN Cancel Swap seats with this player Move player to this seat Nominate this player \u69a8\u6c41\u673a 2 \u5982\u679c\u4e0e\u4f60\u90bb\u8fd1\u7684\u4e24\u540d\u5b58\u6d3b\u7684\u73a9\u5bb6\u662f\u5584\u826f\u7684\uff0c\u4ed6\u4eec\u4e0d\u4f1a\u6b7b\u4ea1\u3002 Hand UP Hand DOWN Cancel Swap seats with this player Move player to this seat.",
+            "raw_signal_count": 2
+        },
+        "observation_202c8a2b-9ad2-416a-ba5f-70fcc22b957c": {
+            "id": "observation_202c8a2b-9ad2-416a-ba5f-70fcc22b957c",
+            "type": "ObservationNode",
+            "timestamp": "2026-02-11T17:52:17.852970",
+            "potential_intent": "Waiting for user input.",
+            "ui_summary": "Desktop screenshot (size 2560x1440) captured. Focused window: \u7f8e\u613f\u6210\u771f by \u6d77\u96fe 11 11 11 7 1 2 1 \u623f\u95f4\u53f7\uff1a 1111 \u590d\u76d8\u89c6\u89d2 1 5. \u6bcf\u4e2a\u767d\u5929\uff0c\u4f60\u53ef\u4ee5\u516c\u5f00\u53d1\u8868\u4e00\u4e2a\u58f0\u660e\u3002\u5728\u5f53\u665a\uff0c\u5982\u679c\u8be5\u58f0\u660e\u662f\u6b63\u786e\u7684\uff0c\u4f1a\u6709\u4e00\u540d\u73a9\u5bb6\u6b7b\u4ea1\u3002 Hand UP Hand DOWN Cancel Swap seats with this player Move player to this seat Nominate this player \u69a8\u6c41\u673a 2 \u5982\u679c\u4e0e\u4f60\u90bb\u8fd1\u7684\u4e24\u540d\u5b58\u6d3b\u7684\u73a9\u5bb6\u662f\u5584\u826f\u7684\uff0c\u4ed6\u4eec\u4e0d\u4f1a\u6b7b\u4ea1\u3002 Hand UP Hand DOWN Cancel Swap seats with this player Move player to this seat.",
+            "raw_signal_count": 2
+        },
+        "observation_6b4f9bf8-97c1-4ddf-a413-f2cca6bae74c": {
+            "id": "observation_6b4f9bf8-97c1-4ddf-a413-f2cca6bae74c",
+            "type": "ObservationNode",
+            "timestamp": "2026-02-11T17:56:03.091985",
+            "potential_intent": "Waiting for user input.",
+            "ui_summary": "Desktop screenshot (size 2560x1440) captured. Focused window: \u7f8e\u613f\u6210\u771f by \u6d77\u96fe 11 11 11 7 1 2 1 \u623f\u95f4\u53f7\uff1a 1111 \u590d\u76d8\u89c6\u89d2 1 5. \u6bcf\u4e2a\u767d\u5929\uff0c\u4f60\u53ef\u4ee5\u516c\u5f00\u53d1\u8868\u4e00\u4e2a\u58f0\u660e\u3002\u5728\u5f53\u665a\uff0c\u5982\u679c\u8be5\u58f0\u660e\u662f\u6b63\u786e\u7684\uff0c\u4f1a\u6709\u4e00\u540d\u73a9\u5bb6\u6b7b\u4ea1\u3002 Hand UP Hand DOWN Cancel Swap seats with this player Move player to this seat Nominate this player \u69a8\u6c41\u673a 2 \u5982\u679c\u4e0e\u4f60\u90bb\u8fd1\u7684\u4e24\u540d\u5b58\u6d3b\u7684\u73a9\u5bb6\u662f\u5584\u826f\u7684\uff0c\u4ed6\u4eec\u4e0d\u4f1a\u6b7b\u4ea1\u3002 Hand UP Hand DOWN Cancel Swap seats with this player Move player to this seat.",
+            "raw_signal_count": 2
+        },
+        "observation_c8ad959f-0d89-490c-8ff2-636610da86dc": {
+            "id": "observation_c8ad959f-0d89-490c-8ff2-636610da86dc",
+            "type": "ObservationNode",
+            "timestamp": "2026-02-11T17:59:45.721162",
+            "potential_intent": "Waiting for user input.",
+            "ui_summary": "Desktop screenshot (size 2560x1440) captured. Focused window: \u7f8e\u613f\u6210\u771f by \u6d77\u96fe 11 11 11 7 1 2 1 \u623f\u95f4\u53f7\uff1a 1111 \u590d\u76d8\u89c6\u89d2 1 5. \u6bcf\u4e2a\u767d\u5929\uff0c\u4f60\u53ef\u4ee5\u516c\u5f00\u53d1\u8868\u4e00\u4e2a\u58f0\u660e\u3002\u5728\u5f53\u665a\uff0c\u5982\u679c\u8be5\u58f0\u660e\u662f\u6b63\u786e\u7684\uff0c\u4f1a\u6709\u4e00\u540d\u73a9\u5bb6\u6b7b\u4ea1\u3002 Hand UP Hand DOWN Cancel Swap seats with this player Move player to this seat Nominate this player \u69a8\u6c41\u673a 2 \u5982\u679c\u4e0e\u4f60\u90bb\u8fd1\u7684\u4e24\u540d\u5b58\u6d3b\u7684\u73a9\u5bb6\u662f\u5584\u826f\u7684\uff0c\u4ed6\u4eec\u4e0d\u4f1a\u6b7b\u4ea1\u3002 Hand UP Hand DOWN Cancel Swap seats with this player Move player to this seat.",
+            "raw_signal_count": 2
+        },
+        "observation_abdbcc26-fc54-4dd3-839b-ae98e6553cca": {
+            "id": "observation_abdbcc26-fc54-4dd3-839b-ae98e6553cca",
+            "type": "ObservationNode",
+            "timestamp": "2026-02-11T18:01:10.838754",
+            "potential_intent": "Waiting for user input.",
+            "ui_summary": "Desktop screenshot (size 2560x1440) captured. Focused window: \u7f8e\u613f\u6210\u771f by \u6d77\u96fe 11 11 11 7 1 2 1 \u623f\u95f4\u53f7\uff1a 1111 \u590d\u76d8\u89c6\u89d2 1 5. \u6bcf\u4e2a\u767d\u5929\uff0c\u4f60\u53ef\u4ee5\u516c\u5f00\u53d1\u8868\u4e00\u4e2a\u58f0\u660e\u3002\u5728\u5f53\u665a\uff0c\u5982\u679c\u8be5\u58f0\u660e\u662f\u6b63\u786e\u7684\uff0c\u4f1a\u6709\u4e00\u540d\u73a9\u5bb6\u6b7b\u4ea1\u3002 Hand UP Hand DOWN Cancel Swap seats with this player Move player to this seat Nominate this player \u69a8\u6c41\u673a 2 \u5982\u679c\u4e0e\u4f60\u90bb\u8fd1\u7684\u4e24\u540d\u5b58\u6d3b\u7684\u73a9\u5bb6\u662f\u5584\u826f\u7684\uff0c\u4ed6\u4eec\u4e0d\u4f1a\u6b7b\u4ea1\u3002 Hand UP Hand DOWN Cancel Swap seats with this player Move player to this seat.",
+            "raw_signal_count": 2
+        },
+        "observation_454d26a4-9a51-454e-8ba1-b3149b1645fe": {
+            "id": "observation_454d26a4-9a51-454e-8ba1-b3149b1645fe",
+            "type": "ObservationNode",
+            "timestamp": "2026-02-11T18:02:18.133113",
+            "potential_intent": "Waiting for user input.",
+            "ui_summary": "Desktop screenshot (size 2560x1440) captured. Focused window: Unknown (No Focus).",
+            "raw_signal_count": 2
+        },
+        "observation_149601aa-7c79-464a-af6c-a7827e4deb00": {
+            "id": "observation_149601aa-7c79-464a-af6c-a7827e4deb00",
+            "type": "ObservationNode",
+            "timestamp": "2026-02-11T18:04:24.984477",
+            "potential_intent": "Preparing to type.",
+            "ui_summary": "Desktop screenshot (size 2560x1440) captured. Focused window: \u65e0\u6807\u9898 - Notepad.",
+            "raw_signal_count": 2
+        }
+    },
+    "edges": []
+}

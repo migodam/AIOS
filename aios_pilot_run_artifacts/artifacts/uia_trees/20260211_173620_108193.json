@@ -1,0 +1,16 @@
+{
+    "name": "\u6587\u672c\u7f16\u8f91\u5668",
+    "control_type": 50030,
+    "automation_id": "",
+    "class_name": "RichEditD2DPT",
+    "process_id": 93356,
+    "is_enabled": 1,
+    "is_keyboard_focusable": 1,
+    "bounding_rectangle": [
+        294,
+        397,
+        1907,
+        829
+    ],
+    "children": []
+}

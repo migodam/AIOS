@@ -1,0 +1,1288 @@
+{
+    "name": "\u7f8e\u613f\u6210\u771f by \u6d77\u96fe 11 9 11 7 1 2 1 \u623f\u95f4\u53f7\uff1a 1111 1 Hand UP Hand DOWN Cancel Swap seats with this player Move player to this seat Nominate this player \u69a8\u6c41\u673a 2 Hand UP Hand DOWN Cancel Swap seats with this player Move player to this seat Nominate this player duan",
+    "control_type": 50026,
+    "automation_id": "app",
+    "class_name": "",
+    "process_id": 26136,
+    "is_enabled": 1,
+    "is_keyboard_focusable": 1,
+    "bounding_rectangle": [
+        0,
+        131,
+        2561,
+        1238
+    ],
+    "children": [
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "info",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1024,
+                626,
+                513,
+                248
+            ],
+            "children": [
+                {
+                    "name": "",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "edition edition-custom",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1115,
+                        564,
+                        331,
+                        248
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "\u7f8e\u613f\u6210\u771f by \u6d77\u96fe11 8 11 ",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1024,
+                        690,
+                        513,
+                        98
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "7 1 2 1 ",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1024,
+                        787,
+                        513,
+                        49
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "\u623f\u95f4\u53f7\uff1a1111",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1024,
+                        835,
+                        513,
+                        50
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "circle size-11",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                30,
+                161,
+                2501,
+                1178
+            ],
+            "children": [
+                {
+                    "name": "1\u69a8\u6c41\u673a",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1280,
+                        161,
+                        174,
+                        589
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "2duan",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1280,
+                        254,
+                        465,
+                        590
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "3chen",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1280,
+                        505,
+                        609,
+                        403
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "4\u4e00\u76c6",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1255,
+                        750,
+                        609,
+                        256
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "51.\u4fee\u884c\u8005\u5728\u4f60\u7684\u9996\u4e2a\u591c\u665a\uff0c\u4f60\u4f1a\u5f97\u77e5\u8ddd\u79bb\u6700\u8fd1\u7684\u90aa\u6076\u73a9\u5bb6\u4f4d\u4e8e\u4f60\u7684\u987a\u65f6\u9488\u8fd8\u662f\u9006\u65f6\u9488\u65b9\u5411\u3002\u5982\u679c\u4e24\u4fa7\u7684\u90aa\u6076\u73a9\u5bb6\u4e0e\u4f60\u8ddd\u79bb\u76f8\u7b49\uff0c\u4f60\u5f97\u77e5\u7684\u4fe1\u606f\u7531\u8bf4\u4e66\u4eba\u51b3\u5b9a\u3002\u5c0f\u94c1\u5320",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1167,
+                        750,
+                        559,
+                        517
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "6\u535a\u5b66\u8005\u6bcf\u4e2a\u767d\u5929\uff0c\u4f60\u53ef\u4ee5\u79c1\u4e0b\u8be2\u95ee\u8bf4\u4e66\u4eba\u4ee5\u5f97\u77e5\u4e24\u6761\u4fe1\u606f\uff1a\u4e00\u4e2a\u662f\u6b63\u786e\u7684\uff0c\u4e00\u4e2a\u662f\u9519\u8bef\u7684\u3002\u6ca1\u6709\u5c3e\u5df4\u7684\u72d7",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1114,
+                        750,
+                        333,
+                        614
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "7Jasmine",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        948,
+                        701,
+                        333,
+                        615
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "8\u841d\u535c\u5934\u5934",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        721,
+                        619,
+                        560,
+                        517
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "9\u8fa3\u6912\u9c7c\u4e38",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        672,
+                        578,
+                        609,
+                        256
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "10ptt",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        744,
+                        347,
+                        609,
+                        403
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "11\u516c\u4e3b\u5728\u4f60\u7684\u9996\u4e2a\u767d\u5929\uff0c\u5982\u679c\u4f60\u63d0\u540d\u5e76\u5904\u51b3\u4e86\u4e00\u540d\u73a9\u5bb6\uff0c\u5f53\u665a\u6076\u9b54\u4e0d\u4f1a\u9020\u6210\u6b7b\u4ea1\u3002sandra",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        962,
+                        160,
+                        465,
+                        590
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "\u4e0d\u5728\u573a\u8eab\u4efd",
+            "control_type": 50020,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                31,
+                1120,
+                496,
+                57
+            ],
+            "children": []
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                19,
+                1176,
+                520,
+                174
+            ],
+            "children": [
+                {
+                    "name": "",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        21,
+                        1176,
+                        169,
+                        174
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        194,
+                        1176,
+                        170,
+                        174
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        368,
+                        1176,
+                        169,
+                        174
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "\u4f20\u5947\u89d2\u8272",
+            "control_type": 50020,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                31,
+                157,
+                209,
+                58
+            ],
+            "children": []
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                19,
+                214,
+                233,
+                174
+            ],
+            "children": [
+                {
+                    "name": "6666\u70b9\u51fb\u548c\u8bf4\u4e66\u4eba\u79c1\u804a\u3002",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        48,
+                        214,
+                        175,
+                        174
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "\u652f\u6301",
+            "control_type": 50005,
+            "automation_id": "",
+            "class_name": "donation",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 1,
+            "bounding_rectangle": [
+                15,
+                404,
+                116,
+                58
+            ],
+            "children": []
+        },
+        {
+            "name": "",
+            "control_type": 50026,
+            "automation_id": "",
+            "class_name": "title",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1909,
+                862,
+                633,
+                80
+            ],
+            "children": [
+                {
+                    "name": "6666",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1924,
+                        880,
+                        69,
+                        43
+                    ],
+                    "children": []
+                },
+                {
+                    "name": " \u00a0",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1993,
+                        880,
+                        16,
+                        43
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "",
+                    "control_type": 50026,
+                    "automation_id": "",
+                    "class_name": "close",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        2473,
+                        877,
+                        24,
+                        50
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1917,
+                709,
+                611,
+                39
+            ],
+            "children": [
+                {
+                    "name": "\ud83c\udf4a: \u6bb5\u59d0\u722a\u7259 jasmine\u6076\u9b54",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1917,
+                        711,
+                        309,
+                        34
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1917,
+                747,
+                611,
+                40
+            ],
+            "children": [
+                {
+                    "name": "\u6ca1\u6709\u5c3e\u5df4\u7684\u72d7: ok",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1917,
+                        749,
+                        206,
+                        34
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1917,
+                786,
+                611,
+                40
+            ],
+            "children": [
+                {
+                    "name": "\ud83c\udf4a: \u5fc3\u4e0a\u4eba\u5728\u573a",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1917,
+                        788,
+                        190,
+                        34
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1917,
+                825,
+                611,
+                39
+            ],
+            "children": [
+                {
+                    "name": "\u6ca1\u6709\u5c3e\u5df4\u7684\u72d7: \u597d\u7684",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1917,
+                        827,
+                        235,
+                        34
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1917,
+                863,
+                611,
+                40
+            ],
+            "children": [
+                {
+                    "name": "\ud83c\udf4a: \u4f20\u6559\u58eb\u9009\u4e2d\u4e86\u4f60",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1917,
+                        865,
+                        245,
+                        34
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1917,
+                902,
+                611,
+                40
+            ],
+            "children": [
+                {
+                    "name": "\u6ca1\u6709\u5c3e\u5df4\u7684\u72d7: \uff1f",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1917,
+                        904,
+                        207,
+                        34
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1917,
+                941,
+                611,
+                39
+            ],
+            "children": [
+                {
+                    "name": "\u6ca1\u6709\u5c3e\u5df4\u7684\u72d7: \u597d",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1917,
+                        943,
+                        207,
+                        34
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1917,
+                980,
+                611,
+                39
+            ],
+            "children": [
+                {
+                    "name": "\u6ca1\u6709\u5c3e\u5df4\u7684\u72d7: \u6765\u5427",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1917,
+                        982,
+                        235,
+                        33
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1917,
+                1018,
+                611,
+                40
+            ],
+            "children": [
+                {
+                    "name": "\u6ca1\u6709\u5c3e\u5df4\u7684\u72d7: \u7b2c\u4e00\u6b21\u62ff",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1917,
+                        1020,
+                        290,
+                        34
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1917,
+                1057,
+                611,
+                40
+            ],
+            "children": [
+                {
+                    "name": "\u6ca1\u6709\u5c3e\u5df4\u7684\u72d7: \u8001\u6fc0\u52a8\u4e86",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1917,
+                        1059,
+                        290,
+                        34
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1917,
+                1096,
+                611,
+                39
+            ],
+            "children": [
+                {
+                    "name": "\ud83c\udf4a: \u597d\u597d\u597d",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1917,
+                        1098,
+                        134,
+                        34
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1917,
+                1134,
+                611,
+                40
+            ],
+            "children": [
+                {
+                    "name": "\ud83c\udf4a: \u7f42\u7c9f\u5728\u573a \u4f20\u6559\u5728\u573a",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1917,
+                        1136,
+                        279,
+                        34
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1917,
+                1173,
+                611,
+                40
+            ],
+            "children": [
+                {
+                    "name": "\u6ca1\u6709\u5c3e\u5df4\u7684\u72d7: \u6765\u4e24\u4e2a",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1917,
+                        1175,
+                        262,
+                        34
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1917,
+                1212,
+                611,
+                39
+            ],
+            "children": [
+                {
+                    "name": "\ud83c\udf4a: \u90aa\u6076\u90bb\u5ea7 \u5916\u6765\u5f02\u5e38",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1917,
+                        1214,
+                        279,
+                        34
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                1917,
+                1250,
+                611,
+                40
+            ],
+            "children": [
+                {
+                    "name": "\ud83c\udf4a: \u54c8\u54c8\u54c8\u54c8\u54c8\u54c8\u54c8\u54c8\u54c8\u54c8",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1917,
+                        1252,
+                        328,
+                        34
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50004,
+            "automation_id": "message",
+            "class_name": "edit",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 1,
+            "bounding_rectangle": [
+                1917,
+                1304,
+                554,
+                39
+            ],
+            "children": []
+        },
+        {
+            "name": "\u53d1\u9001",
+            "control_type": 50000,
+            "automation_id": "",
+            "class_name": "send",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 1,
+            "bounding_rectangle": [
+                2470,
+                1304,
+                65,
+                39
+            ],
+            "children": []
+        },
+        {
+            "name": "\u6d59ICP\u59072024109577\u53f7-2",
+            "control_type": 50005,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 1,
+            "bounding_rectangle": [
+                2337,
+                1326,
+                209,
+                26
+            ],
+            "children": []
+        },
+        {
+            "name": "",
+            "control_type": 50003,
+            "automation_id": "microphone",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 1,
+            "bounding_rectangle": [
+                2150,
+                162,
+                113,
+                26
+            ],
+            "children": []
+        },
+        {
+            "name": "",
+            "control_type": 50026,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                2277,
+                153,
+                120,
+                37
+            ],
+            "children": [
+                {
+                    "name": "\u8ba1\u65f6 ",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        2277,
+                        153,
+                        68,
+                        37
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "3:43",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        2344,
+                        153,
+                        53,
+                        37
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50026,
+            "automation_id": "",
+            "class_name": "nomlog-summary",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                2411,
+                146,
+                56,
+                49
+            ],
+            "children": [
+                {
+                    "name": " 8",
+                    "control_type": 50020,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        2441,
+                        149,
+                        26,
+                        42
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50026,
+            "automation_id": "",
+            "class_name": "session spectator",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                2481,
+                182,
+                76,
+                13
+            ],
+            "children": []
+        },
+        {
+            "name": "",
+            "control_type": 50008,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                2226,
+                206,
+                331,
+                211
+            ],
+            "children": [
+                {
+                    "name": "",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "tabs characters",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        2230,
+                        210,
+                        323,
+                        54
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "\u89d2\u8272",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "headline",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        2230,
+                        263,
+                        323,
+                        49
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "\u9009\u62e9\u5168\u89d2\u8272\u5408\u96c6\u8303\u56f4",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        2230,
+                        311,
+                        323,
+                        47
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "\u79fb\u9664\u5168\u90e8",
+                    "control_type": 50007,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 26136,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        2230,
+                        357,
+                        323,
+                        56
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50006,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                0,
+                131,
+                2561,
+                1238
+            ],
+            "children": []
+        },
+        {
+            "name": "",
+            "control_type": 50006,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                0,
+                131,
+                2561,
+                1238
+            ],
+            "children": []
+        },
+        {
+            "name": "",
+            "control_type": 50006,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26136,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                0,
+                131,
+                2561,
+                1238
+            ],
+            "children": []
+        }
+    ]
+}

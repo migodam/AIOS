@@ -21,7 +21,7 @@ The system implements a full loop:
 **Observe → Parse → Learn → Decide → Act → Learn**
 
 ---
-
+2
 ## 2. Layered System Architecture
 
 AIOS is organized into five vertical layers connected by two extensible protocol buses.
