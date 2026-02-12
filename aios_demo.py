@@ -14,6 +14,7 @@ if str(script_dir) not in sys.path:
 from aios.protocols.schema import (
     Event,
     EventType,
+    GraphUpdate, # ADDED
 )
 from aios.event_stream import JsonlLogger
 from aios.memory.graph import GraphMemory
@@ -79,11 +80,22 @@ def run_aios_cycle(run_id: str, artifact_base_dir: Path, user_instruction: str =
 
         # 5. Update Graph Memory with the new observation
         print("\nStep 5: Updating graph memory with observation...")
-        graph.update(observation)
+        generated_graph_update = graph.update(observation) # Capture the generated GraphUpdate
         graph.save()
+
+        # Log GraphUpdate if one was generated
+        if generated_graph_update:
+            event_graph_update = Event(event_id=str(uuid.uuid4()), event_type=EventType.GRAPH_UPDATE, payload=generated_graph_update)
+            logger.log_event(event_graph_update)
+            print(f"GraphMemory produced and logged GraphUpdate (ID: {generated_graph_update.observation_id}).")
+
 
         # 6. Agent Decision-Making
         print("\nStep 6: Agent deciding action...")
+        # Demonstrate graph querying in the Orient phase
+        recent_dino_context = graph.query(search_intent="Dino", limit=3)
+        print(f"Agent Orienting: Recent 'Dino' related graph updates: {[gu.summary_of_change for gu in recent_dino_context]}")
+        
         action_plan = decide_action(observation, graph) # Pass the current graph
         print(f"Agent produced ActionPlan (Type: {action_plan.action_type}).")
 

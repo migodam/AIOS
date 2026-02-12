@@ -54,6 +54,16 @@ class LLMResponseMock(AIOSBaseModel):
     environment_state_summary: str
     potential_intent: str
 
+# --- Graph Memory Schema ---
+class GraphUpdate(AIOSBaseModel):
+    """
+    Represents an update event to the Interaction Graph memory.
+    Logged to the event stream to allow graph reconstruction and audit.
+    """
+    observation_id: str # The observation that triggered this graph update
+    summary_of_change: str # A human-readable summary of what changed in the graph
+    metadata: Dict[str, Any] = Field(default_factory=dict) # Flexible metadata for future use
+
 # --- Protocol2 Schema ---
 
 class TypeStringParameters(BaseModel):
@@ -91,9 +101,10 @@ class EventType(str, Enum):
     OBSERVATION = "OBSERVATION"
     ACTION = "ACTION"
     RECEIPT = "RECEIPT"
+    GRAPH_UPDATE = "GRAPH_UPDATE" # ADDED
 
 class Event(AIOSBaseModel):
     """A generic wrapper for any event in the system's JSONL log."""
     event_id: str
     event_type: EventType
-    payload: Union[ObservationEvent, ActionPlan, Receipt]
+    payload: Union[ObservationEvent, ActionPlan, Receipt, GraphUpdate] # ADDED GraphUpdate
