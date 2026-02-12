@@ -37,6 +37,11 @@ def decide_action(observation_event: ObservationEvent, graph_memory: GraphMemory
         # The content to type could be more dynamic, e.g., from LLM, but hardcoded for now.
         parameters["text"] = f"Hello from AIOS! Observed at {observation_event.timestamp.isoformat()}"
         decision_summary = "Typing intent detected. Decided to type a greeting."
+    elif observation_event.potential_intent == "Play Chrome Dino Game.": # ADDED DINO LOGIC
+        action_type = "KeyPress"
+        parameters["key"] = "space"
+        parameters["modifiers"] = []
+        decision_summary = "Dino game intent detected. Decided to press space to jump."
     elif "System is running the pilot script" in observation_event.environment_state_summary:
         action_type = "Log"
         parameters["message"] = f"AIOS Agent observed pilot script running at {observation_event.timestamp.isoformat()}"

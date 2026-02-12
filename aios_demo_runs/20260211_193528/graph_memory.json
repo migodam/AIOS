@@ -1,0 +1,13 @@
+{
+    "nodes": {
+        "observation_13a2ccb7-c840-45a7-ba34-495bd356f1e5": {
+            "id": "observation_13a2ccb7-c840-45a7-ba34-495bd356f1e5",
+            "type": "ObservationNode",
+            "timestamp": "2026-02-11T19:35:34.717714",
+            "potential_intent": "Waiting for user instructions.",
+            "ui_summary": "Desktop screenshot (size 2560x1440) captured. Focused window: Terminal 1, node Run the command: Toggle Screen Reader Accessibility Mode for an optimized screen reader experience Use Alt+F1 for terminal accessibility help.",
+            "raw_signal_count": 2
+        }
+    },
+    "edges": []
+}

@@ -1,0 +1,16 @@
+{
+    "name": "Terminal 1, node Run the command: Toggle Screen Reader Accessibility Mode for an optimized screen reader experience Use Alt+F1 for terminal accessibility help",
+    "control_type": 50004,
+    "automation_id": "",
+    "class_name": "xterm-helper-textarea",
+    "process_id": 36580,
+    "is_enabled": 1,
+    "is_keyboard_focusable": 1,
+    "bounding_rectangle": [
+        2521,
+        1309,
+        11,
+        26
+    ],
+    "children": []
+}

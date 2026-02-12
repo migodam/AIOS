@@ -3,22 +3,13 @@ import json
 from typing import List, Any, Dict
 import requests
 from pydantic import ValidationError
-
-from aios.protocols.schema import RawSignal, ObservationEvent, AIOSBaseModel, UIATreeData, ScreenshotData, LogData
-import uuid
 from datetime import datetime
+import uuid
+
+from aios.protocols.schema import RawSignal, ObservationEvent, AIOSBaseModel, UIATreeData, ScreenshotData, LogData, LLMResponseMock
 
 # Define a placeholder LLM API endpoint. This will not exist, so mock mode is crucial.
 LLM_API_ENDPOINT = "http://localhost:8080/v1/chat/completions" # Based on simulated answer to Q2
-
-class LLMResponseMock(AIOSBaseModel):
-    """
-    Mock structure for an LLM response that would contain structured
-    observation data. This helps in validating the mock output.
-    """
-    ui_state_summary: str
-    environment_state_summary: str
-    potential_intent: str
 
 def _search_uia_tree_for_process(tree: Dict[str, Any], class_name_to_find: str) -> bool:
     """
@@ -64,19 +55,19 @@ def _construct_prompt_from_raw_signals(raw_signals: List[RawSignal]) -> str:
         
     return "\n".join(prompt_parts)
 
-def call_llm_api(raw_signals: List[RawSignal], use_mock: bool = True) -> ObservationEvent:
+def call_llm_api(raw_signals: List[RawSignal], user_instruction: str = "", use_mock: bool = True) -> ObservationEvent:
     """
     Calls an external LLM API to parse raw signals into a structured ObservationEvent.
     If use_mock is True, a predefined mock response is returned.
 
     Args:
         raw_signals: A list of RawSignal objects from various observers.
+        user_instruction: An optional instruction from the user, to be included in the prompt.
         use_mock: If True, returns a mock LLM response instead of making an API call.
 
     Returns:
         An ObservationEvent object.
     """
-    print("DEBUG: Entered call_llm_api function.") # Added debug print
     current_timestamp = datetime.utcnow()
     observation_id = str(uuid.uuid4())
 
@@ -85,8 +76,8 @@ def call_llm_api(raw_signals: List[RawSignal], use_mock: bool = True) -> Observa
         
         # Simulate a simple summary based on presence of signals
         ui_summary = "UI at desktop."
-        env_summary = "System appears normal."
-        intent = "Waiting for user input."
+        environment_summary = "System appears normal."
+        potential_intent = "Waiting for user instructions."
         
         notepad_present = False
         for signal in raw_signals:
@@ -94,21 +85,18 @@ def call_llm_api(raw_signals: List[RawSignal], use_mock: bool = True) -> Observa
                 ui_summary = f"Desktop screenshot (size {signal.data.screen_size[0]}x{signal.data.screen_size[1]}) captured."
             elif isinstance(signal.data, UIATreeData):
                 ui_summary += f" Focused window: {signal.data.focused_window_title}."
-                # Use the helper function to search for Notepad
                 if _search_uia_tree_for_process(signal.data.tree_structure, "Notepad"):
                     notepad_present = True
             elif isinstance(signal.data, LogData):
-                env_summary = f"Recent logs show activity in {signal.data.log_source}."
+                environment_summary = f"Recent logs show activity in {signal.data.log_source}."
         
-        # print(f"DEBUG: notepad_present = {notepad_present}") # DEBUG
         if notepad_present:
-            intent = "Preparing to type."
-        # print(f"DEBUG: Final intent = '{intent}'") # DEBUG
+            potential_intent = "Preparing to type."
         
         mock_response_data = LLMResponseMock(
             ui_state_summary=ui_summary,
-            environment_state_summary=env_summary,
-            potential_intent=intent
+            environment_state_summary=environment_summary,
+            potential_intent=potential_intent
         )
         
         # Construct ObservationEvent from mock data
@@ -123,6 +111,8 @@ def call_llm_api(raw_signals: List[RawSignal], use_mock: bool = True) -> Observa
     else:
         print(f"[{current_timestamp.isoformat()}] LLM Connector: Calling external LLM API at {LLM_API_ENDPOINT}...")
         prompt = _construct_prompt_from_raw_signals(raw_signals)
+        if user_instruction:
+            prompt += f"\n\nUser Instruction: {user_instruction}" # Add user instruction to prompt
         
         payload = {
             "model": "gpt-4o", # Placeholder for an actual LLM model
@@ -130,6 +120,7 @@ def call_llm_api(raw_signals: List[RawSignal], use_mock: bool = True) -> Observa
                 {"role": "system", "content": "You are an AIOS Protocol1 parser. Extract UI state, environment state, and user intent from raw observations."},
                 {"role": "user", "content": prompt}
             ],
+            "temperature": 0.7, # Added temperature
             "response_format": {"type": "json_object"} # Assuming JSON output
         }
         
