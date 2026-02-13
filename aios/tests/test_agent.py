@@ -6,106 +6,109 @@ from unittest.mock import MagicMock
 from aios.protocols.schema import ObservationEvent, RawSignal, UIATreeData, ActionPlan, LogData, ScreenshotData
 from aios.memory.graph import GraphMemory
 from aios.agent.main_agent import decide_action
+from aios.protocols.llm_connector import request_core_agent_llm_action # Import the function to mock
 
 @pytest.fixture
 def mock_graph_memory(tmp_path):
-    """Fixture for a mock GraphMemory instance."""
+    \"\"\"Fixture for a mock GraphMemory instance.\"\"\"
     graph_file = tmp_path / "mock_graph.json"
     return GraphMemory(graph_file)
 
-def test_decide_action_notepad_typing_intent(mock_graph_memory):
-    """
-    Tests if the agent decides to TypeString when Notepad is observed
-    and intent suggests typing.
-    """
-    # Mock an ObservationEvent indicating Notepad is open and user intent to type
-    mock_observation = ObservationEvent(
-        observation_id=str(uuid.uuid4()),
-        raw_signals=[
-            RawSignal(
-                observer_id="mock_uia",
-                artifact_path="/tmp/mock.json",
-                artifact_hash="abc",
-                data=UIATreeData(focused_window_title="Untitled - Notepad", tree_structure={"foo": "bar"})
-            )
-        ],
-        ui_state_summary="User is viewing a new Notepad window.",
-        environment_state_summary="System is running.",
-        potential_intent="Preparing to type."
-    )
-
-    action_plan = decide_action(mock_observation, mock_graph_memory)
-
-    assert isinstance(action_plan, ActionPlan)
-    assert action_plan.action_type == "TypeString"
-    assert "Hello from AIOS!" in action_plan.parameters["text"]
-    assert action_plan.dry_run is True
-    assert action_plan.origin_observation_id == mock_observation.observation_id
-
-def test_decide_action_pilot_script_running(mock_graph_memory):
-    """
-    Tests if the agent decides to Log when pilot script is observed.
-    """
-    mock_observation = ObservationEvent(
+@pytest.fixture
+def mock_observation_event():
+    return ObservationEvent(
         observation_id=str(uuid.uuid4()),
         raw_signals=[],
-        ui_state_summary="Desktop is visible.",
-        environment_state_summary="System is running the pilot script.",
-        potential_intent="Monitoring system."
+        ui_state_summary="Mock UI state",
+        environment_state_summary="Mock env state",
+        potential_intent="Mock intent"
     )
 
-    action_plan = decide_action(mock_observation, mock_graph_memory)
+@patch('aios.protocols.llm_connector.request_core_agent_llm_action')
+def test_decide_action_calls_llm_connector(mock_llm_connector_call, mock_observation_event, mock_graph_memory):
+    \"\"\"
+    Test that decide_action calls request_core_agent_llm_action with correct arguments
+    and returns its result.
+    \"\"\"
+    mock_action_plan = ActionPlan(
+        action_id=str(uuid.uuid4()),
+        origin_observation_id=mock_observation_event.observation_id,
+        action_type="TypeString",
+        parameters={"text": "Hello AIOS!"},
+        constraints={},
+        dry_run=False
+    )
+    mock_llm_connector_call.return_value = mock_action_plan
 
-    assert isinstance(action_plan, ActionPlan)
-    assert action_plan.action_type == "Log"
-    assert "AIOS Agent observed pilot script running" in action_plan.parameters["message"]
-    assert action_plan.dry_run is True
-    assert action_plan.origin_observation_id == mock_observation.observation_id
+    user_instruction = "Open Notepad and type Hello AIOS"
+    llm_api_key = "test_key"
+    core_llm_prompt_filename = "core_llm_prompt.txt"
 
-def test_decide_action_no_specific_intent(mock_graph_memory):
-    """
-    Tests if the agent decides "NoAction" when no specific rules are met.
-    """
-    mock_observation = ObservationEvent(
-        observation_id=str(uuid.uuid4()),
-        raw_signals=[
-            RawSignal(
-                observer_id="mock_ss",
-                artifact_path="/tmp/mock.png",
-                artifact_hash="def",
-                data=ScreenshotData(screen_size=(1920, 1080))
-            )
-        ],
-        ui_state_summary="Generic desktop view.",
-        environment_state_summary="System idle.",
-        potential_intent="Browsing."
+    action_plan = decide_action(
+        observation_event=mock_observation_event,
+        graph_memory=mock_graph_memory,
+        user_instruction=user_instruction,
+        llm_api_key=llm_api_key,
+        core_llm_prompt_filename=core_llm_prompt_filename
     )
 
-    action_plan = decide_action(mock_observation, mock_graph_memory)
-
+    mock_llm_connector_call.assert_called_once_with(
+        observation_event=mock_observation_event,
+        graph_memory_summary=f"Graph contains {len(mock_graph_memory.nodes)} nodes and {len(mock_graph_memory.edges)} edges. "
+                             f"Most recent observation intent: {mock_observation_event.potential_intent}. "
+                             f"Most recent UI summary: {mock_observation_event.ui_state_summary}.",
+        user_instruction=user_instruction,
+        llm_api_key=llm_api_key,
+        core_llm_prompt_filename=core_llm_prompt_filename
+    )
+    assert action_plan == mock_action_plan
     assert isinstance(action_plan, ActionPlan)
+
+def test_decide_action_graph_summary_includes_current_observation(mock_llm_connector_call, mock_observation_event, mock_graph_memory):
+    \"\"\"
+    Test that the graph memory summary passed to the LLM includes details from the current observation.
+    \"\"\"
+    mock_llm_connector_call.return_value = ActionPlan(
+        action_id=str(uuid.uuid4()),
+        origin_observation_id=mock_observation_event.observation_id,
+        action_type="NoAction", parameters={}, constraints={}, dry_run=False
+    )
+    
+    decide_action(
+        observation_event=mock_observation_event,
+        graph_memory=mock_graph_memory,
+        user_instruction="some instruction",
+        llm_api_key="key",
+        core_llm_prompt_filename="core.txt"
+    )
+
+    # Check the graph_memory_summary argument
+    _, kwargs = mock_llm_connector_call.call_args
+    summary = kwargs['graph_memory_summary']
+    assert f"Most recent observation intent: {mock_observation_event.potential_intent}" in summary
+    assert f"Most recent UI summary: {mock_observation_event.ui_state_summary}" in summary
+
+def test_decide_action_returns_llm_action_plan_on_no_action(mock_llm_connector_call, mock_observation_event, mock_graph_memory):
+    \"\"\"
+    Test that decide_action correctly returns an ActionPlan even if the LLM decides 'NoAction'.
+    \"\"\"
+    mock_action_plan_no_action = ActionPlan(
+        action_id=str(uuid.uuid4()),
+        origin_observation_id=mock_observation_event.observation_id,
+        action_type="NoAction",
+        parameters={},
+        constraints={},
+        dry_run=False
+    )
+    mock_llm_connector_call.return_value = mock_action_plan_no_action
+
+    action_plan = decide_action(
+        observation_event=mock_observation_event,
+        graph_memory=mock_graph_memory,
+        user_instruction="Just observe",
+        llm_api_key="test_key",
+        core_llm_prompt_filename="core_llm_prompt.txt"
+    )
+
+    assert action_plan == mock_action_plan_no_action
     assert action_plan.action_type == "NoAction"
-    assert action_plan.parameters == {}
-    assert action_plan.dry_run is True
-    assert action_plan.origin_observation_id == mock_observation.observation_id
-
-def test_decide_action_graph_access(mock_graph_memory):
-    """Tests that the agent can access graph memory properties."""
-    # Ensure graph memory properties are accessible
-    assert hasattr(mock_graph_memory, 'nodes')
-    assert hasattr(mock_graph_memory, 'edges')
-    # The agent's decide_action function should not modify the graph here,
-    # but merely query it for orienting.
-    
-    mock_observation = ObservationEvent(
-        observation_id=str(uuid.uuid4()),
-        raw_signals=[],
-        ui_state_summary="Test",
-        environment_state_summary="Test",
-        potential_intent="Test"
-    )
-    
-    # We're just checking that the agent doesn't crash when accessing the graph
-    action_plan = decide_action(mock_observation, mock_graph_memory)
-    assert isinstance(action_plan, ActionPlan)
-

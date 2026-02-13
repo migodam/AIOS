@@ -1,0 +1,148 @@
+{
+    "name": "Terminal 1 node",
+    "control_type": 50007,
+    "automation_id": "list_id_2_0",
+    "class_name": "monaco-list-row focused selected",
+    "process_id": 7808,
+    "is_enabled": 1,
+    "is_keyboard_focusable": 0,
+    "bounding_rectangle": [
+        2381,
+        768,
+        180,
+        33
+    ],
+    "children": [
+        {
+            "name": "",
+            "control_type": 50026,
+            "automation_id": "",
+            "class_name": "terminal-tabs-entry has-text is-active",
+            "process_id": 7808,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                2381,
+                768,
+                180,
+                33
+            ],
+            "children": [
+                {
+                    "name": "$(terminal) node",
+                    "control_type": 50026,
+                    "automation_id": "",
+                    "class_name": "monaco-icon-label file-icon 3f6a19ad53c4bc803802098a0db33d9e-name-dir-icon 1-name-file-icon name-file-icon ext-file-icon unknown-lang-file-icon monaco-decoration-itemColor--vp1u1j monaco-decoration-itemBadge--vp1u1j monaco-decoration-iconBadge--vp1u1j",
+                    "process_id": 7808,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        2396,
+                        768,
+                        150,
+                        33
+                    ],
+                    "children": [
+                        {
+                            "name": "\uea85",
+                            "control_type": 50020,
+                            "automation_id": "",
+                            "class_name": "",
+                            "process_id": 7808,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                2396,
+                                773,
+                                25,
+                                24
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": " node",
+                            "control_type": 50020,
+                            "automation_id": "",
+                            "class_name": "",
+                            "process_id": 7808,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                2420,
+                                771,
+                                32,
+                                26
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "",
+                            "control_type": 50021,
+                            "automation_id": "",
+                            "class_name": "actions-container",
+                            "process_id": 7808,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                2454,
+                                768,
+                                60,
+                                33
+                            ],
+                            "children": [
+                                {
+                                    "name": "Split (Ctrl+Shift+5)",
+                                    "control_type": 50000,
+                                    "automation_id": "",
+                                    "class_name": "action-label codicon codicon-split-horizontal",
+                                    "process_id": 7808,
+                                    "is_enabled": 1,
+                                    "is_keyboard_focusable": 1,
+                                    "bounding_rectangle": [
+                                        2454,
+                                        769,
+                                        30,
+                                        31
+                                    ],
+                                    "children": []
+                                },
+                                {
+                                    "name": "Kill (Delete)",
+                                    "control_type": 50000,
+                                    "automation_id": "",
+                                    "class_name": "action-label codicon codicon-trashcan",
+                                    "process_id": 7808,
+                                    "is_enabled": 1,
+                                    "is_keyboard_focusable": 1,
+                                    "bounding_rectangle": [
+                                        2484,
+                                        769,
+                                        30,
+                                        31
+                                    ],
+                                    "children": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "\uea6c",
+                            "control_type": 50020,
+                            "automation_id": "",
+                            "class_name": "",
+                            "process_id": 7808,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                2521,
+                                772,
+                                25,
+                                24
+                            ],
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

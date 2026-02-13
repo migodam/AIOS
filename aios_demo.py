@@ -20,16 +20,26 @@ from aios.event_stream import JsonlLogger
 from aios.memory.graph import GraphMemory
 from aios.observers.screenshot import capture_screenshot
 from aios.observers.uia import get_focused_uia_tree
-from aios.protocols.llm_connector import call_llm_api
+from aios.protocols.llm_connector import request_protocol_llm_observation
 from aios.agent.main_agent import decide_action
 from aios.protocols.action_protocol import process_action_plan
 from aios.actuators.main_actuator import execute_action
 
-def run_aios_cycle(run_id: str, artifact_base_dir: Path, user_instruction: str = "", llm_use_mock: bool = True, llm_api_key: str = None):
+from aios.protocols.llm_connector import request_protocol_llm_observation, request_core_agent_llm_action # ADDED
+
+def run_aios_cycle(run_id: str, artifact_base_dir: Path, user_instruction: str = "", llm_api_key: str = None):
     """
     Executes one full cycle of the AIOS: Observe -> Parse -> Learn -> Decide -> Plan -> Act.
     """
     print(f"\n--- Starting AIOS Cycle: {run_id} ---")
+    
+    # Define prompt filenames
+    PROTOCOL_LLM_PROMPT_FILENAME = "protocol_llm_prompt.txt"
+    CORE_LLM_PROMPT_FILENAME = "core_llm_prompt.txt"
+
+    if not llm_api_key:
+        print("ERROR: LLM API Key is missing. Cannot proceed with real LLM.")
+        return False
 
     # Define paths for artifacts for this specific run
     run_artifact_dir = artifact_base_dir / run_id
@@ -69,8 +79,13 @@ def run_aios_cycle(run_id: str, artifact_base_dir: Path, user_instruction: str =
 
         # 3. Process Raw Signals with LLM Connector
         print("\nStep 3: Processing raw signals with LLM Connector...")
-        # Pass user_instruction and use_mock from function arguments
-        observation = call_llm_api(raw_signals, user_instruction=user_instruction, use_mock=llm_use_mock)
+        # Use the new request_protocol_llm_observation
+        observation = request_protocol_llm_observation(
+            raw_signals=raw_signals,
+            user_instruction=user_instruction,
+            llm_api_key=llm_api_key,
+            protocol_llm_prompt_filename=PROTOCOL_LLM_PROMPT_FILENAME
+        )
         print(f"LLM Connector produced ObservationEvent (ID: {observation.observation_id}).")
 
         # 4. Wrap and Log Observation Event
@@ -96,7 +111,13 @@ def run_aios_cycle(run_id: str, artifact_base_dir: Path, user_instruction: str =
         recent_dino_context = graph.query(search_intent="Dino", limit=3)
         print(f"Agent Orienting: Recent 'Dino' related graph updates: {[gu.summary_of_change for gu in recent_dino_context]}")
         
-        action_plan = decide_action(observation, graph) # Pass the current graph
+        action_plan = decide_action(
+            observation_event=observation,
+            graph_memory=graph,
+            user_instruction=user_instruction,
+            llm_api_key=llm_api_key,
+            core_llm_prompt_filename=CORE_LLM_PROMPT_FILENAME
+        )
         print(f"Agent produced ActionPlan (Type: {action_plan.action_type}).")
 
         # 7. Wrap and Log ActionPlan Event
@@ -148,10 +169,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run the AIOS Demo Cycle.")
     parser.add_argument("--user_instruction", type=str, default="Demonstrating AIOS basic cycle",
                         help="User instruction for the AIOS agent.")
-    parser.add_argument("--llm_use_mock", type=lambda x: x.lower() == 'true', default=True,
-                        help="Use mock LLM responses (True/False).")
-    parser.add_argument("--llm_api_key", type=str, default=None,
-                        help="Optional LLM API Key.")
+    parser.add_argument("--llm_api_key", type=str, default=None, required=True, # Made API key required
+                        help="LLM API Key for real LLM calls.")
 
     args = parser.parse_args()
 
@@ -166,7 +185,6 @@ if __name__ == "__main__":
     
     run_aios_cycle(demo_run_id, base_artifact_dir, 
                    user_instruction=args.user_instruction, 
-                   llm_use_mock=args.llm_use_mock, 
                    llm_api_key=args.llm_api_key)
     print("\nAIOS Demo Finished.")
     print(f"Check logs and artifacts in {base_artifact_dir / demo_run_id}")

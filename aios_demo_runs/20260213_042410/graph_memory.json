@@ -1,0 +1,733 @@
+{
+    "graph_updates": [
+        {
+            "timestamp": "2026-02-13T04:24:22.857630",
+            "version": 1,
+            "observation_id": "09e5359f-8a7c-40df-b2b3-95c1fea2c6ef",
+            "summary_of_change": "Initial observation: Intent 'The user intends to type 'Hello AIOS' into Notepad.', UI: 'The UI currently displays Notepad with an open document named 'OpenAI_Key.txt'. The document has unsaved changes, and the UI includes standard menu options such as File, Edit, and View, as well as text editing controls like bold, italic, and link buttons. A 'Settings' button is also present.'",
+            "metadata": {
+                "observation_timestamp": "2026-02-13T04:24:22.841776"
+            }
+        }
+    ],
+    "previous_observation": {
+        "timestamp": "2026-02-13T04:24:22.841776",
+        "version": 1,
+        "observation_id": "09e5359f-8a7c-40df-b2b3-95c1fea2c6ef",
+        "raw_signals": [
+            {
+                "timestamp": "2026-02-13T04:24:15.705970",
+                "version": 1,
+                "observer_id": "screenshot_observer_v1",
+                "artifact_path": "aios_demo_runs\\20260213_042410\\artifacts\\screenshots\\20260213_042415_529309.png",
+                "artifact_hash": "d8cea0b605205b352b696cb65e9366e7c4cf8824c65de164d3744a0a573fbb6a",
+                "data": {
+                    "format": "png",
+                    "screen_size": [
+                        2560,
+                        1440
+                    ]
+                }
+            },
+            {
+                "timestamp": "2026-02-13T04:24:16.891734",
+                "version": 1,
+                "observer_id": "uia_observer_v1",
+                "artifact_path": "aios_demo_runs\\20260213_042410\\artifacts\\uia_trees\\20260213_042416_878635.json",
+                "artifact_hash": "818962198ade1a1be25e5d1344771943f6e4d841d976e089e44e4438fa260a90",
+                "data": {
+                    "focused_window_title": "*OpenAI_Key.txt - Notepad",
+                    "tree_structure": {
+                        "name": "*OpenAI_Key.txt - Notepad",
+                        "control_type": 50032,
+                        "automation_id": "",
+                        "class_name": "Notepad",
+                        "process_id": 8508,
+                        "is_enabled": 1,
+                        "is_keyboard_focusable": 1,
+                        "bounding_rectangle": [
+                            643,
+                            345,
+                            1925,
+                            998
+                        ],
+                        "children": [
+                            {
+                                "name": "",
+                                "control_type": 50033,
+                                "automation_id": "",
+                                "class_name": "NotepadTextBox",
+                                "process_id": 8508,
+                                "is_enabled": 1,
+                                "is_keyboard_focusable": 1,
+                                "bounding_rectangle": [
+                                    652,
+                                    457,
+                                    1907,
+                                    829
+                                ],
+                                "children": [
+                                    {
+                                        "name": "\u6587\u672c\u7f16\u8f91\u5668",
+                                        "control_type": 50030,
+                                        "automation_id": "",
+                                        "class_name": "RichEditD2DPT",
+                                        "process_id": 8508,
+                                        "is_enabled": 1,
+                                        "is_keyboard_focusable": 1,
+                                        "bounding_rectangle": [
+                                            652,
+                                            457,
+                                            1907,
+                                            829
+                                        ],
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "",
+                                "control_type": 50033,
+                                "automation_id": "",
+                                "class_name": "Microsoft.UI.Content.DesktopChildSiteBridge",
+                                "process_id": 8508,
+                                "is_enabled": 1,
+                                "is_keyboard_focusable": 1,
+                                "bounding_rectangle": [
+                                    712,
+                                    359,
+                                    431,
+                                    48
+                                ],
+                                "children": [
+                                    {
+                                        "name": "",
+                                        "control_type": 50033,
+                                        "automation_id": "",
+                                        "class_name": "InputSiteWindowClass",
+                                        "process_id": 8508,
+                                        "is_enabled": 1,
+                                        "is_keyboard_focusable": 0,
+                                        "bounding_rectangle": [
+                                            712,
+                                            359,
+                                            431,
+                                            48
+                                        ],
+                                        "children": [
+                                            {
+                                                "name": "",
+                                                "control_type": 50018,
+                                                "automation_id": "Tabs",
+                                                "class_name": "Microsoft.UI.Xaml.Controls.TabView",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 0,
+                                                "bounding_rectangle": [
+                                                    712,
+                                                    359,
+                                                    431,
+                                                    48
+                                                ],
+                                                "children": [
+                                                    {
+                                                        "name": "",
+                                                        "control_type": 50008,
+                                                        "automation_id": "TabListView",
+                                                        "class_name": "ListView",
+                                                        "process_id": 8508,
+                                                        "is_enabled": 1,
+                                                        "is_keyboard_focusable": 0,
+                                                        "bounding_rectangle": [
+                                                            715,
+                                                            359,
+                                                            372,
+                                                            48
+                                                        ],
+                                                        "children": [
+                                                            {
+                                                                "name": "OpenAI_Key.txt. \u5df2\u4fee\u6539\u3002",
+                                                                "control_type": 50019,
+                                                                "automation_id": "",
+                                                                "class_name": "ListViewItem",
+                                                                "process_id": 8508,
+                                                                "is_enabled": 1,
+                                                                "is_keyboard_focusable": 1,
+                                                                "bounding_rectangle": [
+                                                                    718,
+                                                                    359,
+                                                                    369,
+                                                                    48
+                                                                ],
+                                                                "children": [
+                                                                    {
+                                                                        "name": "OpenAI_Key.txt",
+                                                                        "control_type": 50020,
+                                                                        "automation_id": "",
+                                                                        "class_name": "TextBlock",
+                                                                        "process_id": 8508,
+                                                                        "is_enabled": 1,
+                                                                        "is_keyboard_focusable": 0,
+                                                                        "bounding_rectangle": [
+                                                                            737,
+                                                                            371,
+                                                                            124,
+                                                                            23
+                                                                        ],
+                                                                        "children": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "name": "\u6dfb\u52a0\u65b0\u6807\u7b7e\u9875",
+                                                        "control_type": 50000,
+                                                        "automation_id": "AddButton",
+                                                        "class_name": "Button",
+                                                        "process_id": 8508,
+                                                        "is_enabled": 1,
+                                                        "is_keyboard_focusable": 1,
+                                                        "bounding_rectangle": [
+                                                            1092,
+                                                            366,
+                                                            48,
+                                                            36
+                                                        ],
+                                                        "children": []
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "",
+                                "control_type": 50033,
+                                "automation_id": "",
+                                "class_name": "Microsoft.UI.Content.DesktopChildSiteBridge",
+                                "process_id": 8508,
+                                "is_enabled": 1,
+                                "is_keyboard_focusable": 1,
+                                "bounding_rectangle": [
+                                    652,
+                                    407,
+                                    1907,
+                                    50
+                                ],
+                                "children": [
+                                    {
+                                        "name": "",
+                                        "control_type": 50033,
+                                        "automation_id": "",
+                                        "class_name": "InputSiteWindowClass",
+                                        "process_id": 8508,
+                                        "is_enabled": 1,
+                                        "is_keyboard_focusable": 0,
+                                        "bounding_rectangle": [
+                                            652,
+                                            407,
+                                            1907,
+                                            50
+                                        ],
+                                        "children": [
+                                            {
+                                                "name": "",
+                                                "control_type": 50010,
+                                                "automation_id": "MenuBar",
+                                                "class_name": "",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 0,
+                                                "bounding_rectangle": [
+                                                    652,
+                                                    407,
+                                                    252,
+                                                    48
+                                                ],
+                                                "children": [
+                                                    {
+                                                        "name": "\u6587\u4ef6",
+                                                        "control_type": 50011,
+                                                        "automation_id": "File",
+                                                        "class_name": "Microsoft.UI.Xaml.Controls.MenuBarItem",
+                                                        "process_id": 8508,
+                                                        "is_enabled": 1,
+                                                        "is_keyboard_focusable": 1,
+                                                        "bounding_rectangle": [
+                                                            658,
+                                                            407,
+                                                            72,
+                                                            48
+                                                        ],
+                                                        "children": []
+                                                    },
+                                                    {
+                                                        "name": "\u7f16\u8f91",
+                                                        "control_type": 50011,
+                                                        "automation_id": "Edit",
+                                                        "class_name": "Microsoft.UI.Xaml.Controls.MenuBarItem",
+                                                        "process_id": 8508,
+                                                        "is_enabled": 1,
+                                                        "is_keyboard_focusable": 1,
+                                                        "bounding_rectangle": [
+                                                            742,
+                                                            407,
+                                                            72,
+                                                            48
+                                                        ],
+                                                        "children": []
+                                                    },
+                                                    {
+                                                        "name": "\u67e5\u770b",
+                                                        "control_type": 50011,
+                                                        "automation_id": "View",
+                                                        "class_name": "Microsoft.UI.Xaml.Controls.MenuBarItem",
+                                                        "process_id": 8508,
+                                                        "is_enabled": 1,
+                                                        "is_keyboard_focusable": 1,
+                                                        "bounding_rectangle": [
+                                                            826,
+                                                            407,
+                                                            72,
+                                                            48
+                                                        ],
+                                                        "children": []
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "name": "\u6807\u9898",
+                                                "control_type": 50000,
+                                                "automation_id": "",
+                                                "class_name": "Microsoft.UI.Xaml.Controls.DropDownButton",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 1,
+                                                "bounding_rectangle": [
+                                                    1384,
+                                                    407,
+                                                    84,
+                                                    48
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": "\u5217\u8868",
+                                                "control_type": 50000,
+                                                "automation_id": "",
+                                                "class_name": "Microsoft.UI.Xaml.Controls.DropDownButton",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 1,
+                                                "bounding_rectangle": [
+                                                    1468,
+                                                    407,
+                                                    84,
+                                                    48
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": "\u52a0\u7c97(Ctrl+B)",
+                                                "control_type": 50000,
+                                                "automation_id": "",
+                                                "class_name": "ToggleButton",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 1,
+                                                "bounding_rectangle": [
+                                                    1552,
+                                                    407,
+                                                    48,
+                                                    48
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": "\u659c\u4f53(Ctrl+I)",
+                                                "control_type": 50000,
+                                                "automation_id": "",
+                                                "class_name": "ToggleButton",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 1,
+                                                "bounding_rectangle": [
+                                                    1600,
+                                                    407,
+                                                    48,
+                                                    48
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": "\u94fe\u63a5(Ctrl+K)",
+                                                "control_type": 50000,
+                                                "automation_id": "",
+                                                "class_name": "ToggleButton",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 1,
+                                                "bounding_rectangle": [
+                                                    1648,
+                                                    407,
+                                                    48,
+                                                    48
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": "\u8868",
+                                                "control_type": 50000,
+                                                "automation_id": "",
+                                                "class_name": "Microsoft.UI.Xaml.Controls.DropDownButton",
+                                                "process_id": 8508,
+                                                "is_enabled": 0,
+                                                "is_keyboard_focusable": 0,
+                                                "bounding_rectangle": [
+                                                    1696,
+                                                    407,
+                                                    84,
+                                                    48
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": "\u6e05\u9664\u683c\u5f0f\u8bbe\u7f6e(Ctrl+\u7a7a\u683c)",
+                                                "control_type": 50000,
+                                                "automation_id": "",
+                                                "class_name": "ToggleButton",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 1,
+                                                "bounding_rectangle": [
+                                                    1780,
+                                                    407,
+                                                    48,
+                                                    48
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": "\u8bbe\u7f6e",
+                                                "control_type": 50000,
+                                                "automation_id": "SettingsButton",
+                                                "class_name": "Button",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 1,
+                                                "bounding_rectangle": [
+                                                    2502,
+                                                    407,
+                                                    45,
+                                                    48
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": "",
+                                                "control_type": 50032,
+                                                "automation_id": "PrivacyTeachingTip",
+                                                "class_name": "Microsoft.UI.Xaml.Controls.TeachingTip",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 0,
+                                                "bounding_rectangle": [
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": "",
+                                                "control_type": 50032,
+                                                "automation_id": "CowriterTeachingTip",
+                                                "class_name": "Microsoft.UI.Xaml.Controls.TeachingTip",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 0,
+                                                "bounding_rectangle": [
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": "",
+                                                "control_type": 50033,
+                                                "automation_id": "PsDownloadDetailTeachingTip",
+                                                "class_name": "Microsoft.UI.Xaml.Controls.TeachingTip",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 0,
+                                                "bounding_rectangle": [
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": "\u672c\u5730\u6a21\u578b\u5fc5\u987b\u5b8c\u6210\u4e0b\u8f7d\u624d\u53ef\u5728\u6ce8\u9500\u540e\u4f7f\u7528 AI \u529f\u80fd\u3002",
+                                                "control_type": 50033,
+                                                "automation_id": "PsDownloadLightTeachingTip",
+                                                "class_name": "Microsoft.UI.Xaml.Controls.TeachingTip",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 0,
+                                                "bounding_rectangle": [
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0
+                                                ],
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "",
+                                "control_type": 50033,
+                                "automation_id": "",
+                                "class_name": "Microsoft.UI.Content.DesktopChildSiteBridge",
+                                "process_id": 8508,
+                                "is_enabled": 0,
+                                "is_keyboard_focusable": 1,
+                                "bounding_rectangle": [
+                                    652,
+                                    1286,
+                                    1907,
+                                    48
+                                ],
+                                "children": [
+                                    {
+                                        "name": "",
+                                        "control_type": 50033,
+                                        "automation_id": "",
+                                        "class_name": "InputSiteWindowClass",
+                                        "process_id": 8508,
+                                        "is_enabled": 0,
+                                        "is_keyboard_focusable": 0,
+                                        "bounding_rectangle": [
+                                            652,
+                                            1286,
+                                            1907,
+                                            48
+                                        ],
+                                        "children": [
+                                            {
+                                                "name": "\u884c 5\uff0c\n\u5217 35",
+                                                "control_type": 50020,
+                                                "automation_id": "ContentTextBlock",
+                                                "class_name": "TextBlock",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 0,
+                                                "bounding_rectangle": [
+                                                    676,
+                                                    1298,
+                                                    105,
+                                                    24
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": "34 \u4e2a\u5b57\u7b26\uff0c\u5171 366 \u4e2a",
+                                                "control_type": 50020,
+                                                "automation_id": "ContentTextBlock",
+                                                "class_name": "TextBlock",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 0,
+                                                "bounding_rectangle": [
+                                                    810,
+                                                    1298,
+                                                    172,
+                                                    24
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": "\u7eaf\u6587\u672c",
+                                                "control_type": 50020,
+                                                "automation_id": "ContentTextBlock",
+                                                "class_name": "TextBlock",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 0,
+                                                "bounding_rectangle": [
+                                                    1113,
+                                                    1286,
+                                                    72,
+                                                    48
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": "\u7f29\u653e",
+                                                "control_type": 50020,
+                                                "automation_id": "ContentTextBlock",
+                                                "class_name": "TextBlock",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 0,
+                                                "bounding_rectangle": [
+                                                    2003,
+                                                    1298,
+                                                    49,
+                                                    24
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": " Windows (CRLF)",
+                                                "control_type": 50020,
+                                                "automation_id": "ContentTextBlock",
+                                                "class_name": "TextBlock",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 0,
+                                                "bounding_rectangle": [
+                                                    2105,
+                                                    1298,
+                                                    134,
+                                                    24
+                                                ],
+                                                "children": []
+                                            },
+                                            {
+                                                "name": " UTF-8",
+                                                "control_type": 50020,
+                                                "automation_id": "ContentTextBlock",
+                                                "class_name": "TextBlock",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 0,
+                                                "bounding_rectangle": [
+                                                    2357,
+                                                    1298,
+                                                    52,
+                                                    24
+                                                ],
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "",
+                                "control_type": 50037,
+                                "automation_id": "",
+                                "class_name": "",
+                                "process_id": 8508,
+                                "is_enabled": 1,
+                                "is_keyboard_focusable": 1,
+                                "bounding_rectangle": [
+                                    0,
+                                    0,
+                                    0,
+                                    0
+                                ],
+                                "children": [
+                                    {
+                                        "name": "\u7cfb\u7edf",
+                                        "control_type": 50010,
+                                        "automation_id": "MenuBar",
+                                        "class_name": "",
+                                        "process_id": 8508,
+                                        "is_enabled": 1,
+                                        "is_keyboard_focusable": 1,
+                                        "bounding_rectangle": [
+                                            654,
+                                            356,
+                                            33,
+                                            33
+                                        ],
+                                        "children": [
+                                            {
+                                                "name": "\u7cfb\u7edf",
+                                                "control_type": 50011,
+                                                "automation_id": "",
+                                                "class_name": "",
+                                                "process_id": 8508,
+                                                "is_enabled": 1,
+                                                "is_keyboard_focusable": 1,
+                                                "bounding_rectangle": [
+                                                    654,
+                                                    356,
+                                                    33,
+                                                    33
+                                                ],
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "\u6700\u5c0f\u5316",
+                                        "control_type": 50000,
+                                        "automation_id": "",
+                                        "class_name": "",
+                                        "process_id": 8508,
+                                        "is_enabled": 1,
+                                        "is_keyboard_focusable": 0,
+                                        "bounding_rectangle": [
+                                            2348,
+                                            346,
+                                            71,
+                                            44
+                                        ],
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "\u6700\u5927\u5316",
+                                        "control_type": 50000,
+                                        "automation_id": "",
+                                        "class_name": "",
+                                        "process_id": 8508,
+                                        "is_enabled": 1,
+                                        "is_keyboard_focusable": 0,
+                                        "bounding_rectangle": [
+                                            2419,
+                                            346,
+                                            70,
+                                            44
+                                        ],
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "\u5173\u95ed",
+                                        "control_type": 50000,
+                                        "automation_id": "",
+                                        "class_name": "",
+                                        "process_id": 8508,
+                                        "is_enabled": 1,
+                                        "is_keyboard_focusable": 0,
+                                        "bounding_rectangle": [
+                                            2489,
+                                            346,
+                                            71,
+                                            44
+                                        ],
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        ],
+        "ui_state_summary": "The UI currently displays Notepad with an open document named 'OpenAI_Key.txt'. The document has unsaved changes, and the UI includes standard menu options such as File, Edit, and View, as well as text editing controls like bold, italic, and link buttons. A 'Settings' button is also present.",
+        "environment_state_summary": "Not explicitly provided by ProtocolLLM",
+        "potential_intent": "The user intends to type 'Hello AIOS' into Notepad."
+    }
+}

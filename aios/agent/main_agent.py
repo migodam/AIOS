@@ -4,8 +4,15 @@ import uuid
 
 from aios.protocols.schema import ObservationEvent, ActionPlan
 from aios.memory.graph import GraphMemory # Agent needs access to graph memory
+from aios.protocols.llm_connector import request_core_agent_llm_action
 
-def decide_action(observation_event: ObservationEvent, graph_memory: GraphMemory) -> ActionPlan:
+def decide_action(
+    observation_event: ObservationEvent,
+    graph_memory: GraphMemory,
+    user_instruction: str,
+    llm_api_key: str,
+    core_llm_prompt_filename: str
+) -> ActionPlan:
     """
     Agent's decision-making function. Based on the observation and historical
     graph memory, it decides on the next action.
@@ -25,36 +32,28 @@ def decide_action(observation_event: ObservationEvent, graph_memory: GraphMemory
     # --- Orient: Querying Graph Memory (Simplified for Iteration 5) ---
     # For now, we only use graph_memory to show it's accessible.
     # In future iterations, actual querying logic would go here.
-    num_nodes = len(graph_memory.nodes)
-    num_edges = len(graph_memory.edges)
-    print(f"Agent Orienting: Graph has {num_nodes} nodes and {num_edges} edges.")
+    print(f"Agent Orienting: Graph has {len(graph_memory.graph_updates)} recorded updates.")
 
-    # --- Decide: Rule-based Decision Logic (Simplified for Iteration 5) ---
-    # Example Rule: If intent is to type in Notepad, then type a string.
-    # The LLM connector is mock-configured to set intent to "Preparing to type." if Notepad is open.
-    if observation_event.potential_intent == "Preparing to type.":
-        action_type = "TypeString"
-        # The content to type could be more dynamic, e.g., from LLM, but hardcoded for now.
-        parameters["text"] = f"Hello from AIOS! Observed at {observation_event.timestamp.isoformat()}"
-        decision_summary = "Typing intent detected. Decided to type a greeting."
-    elif observation_event.potential_intent == "Play Chrome Dino Game.": # ADDED DINO LOGIC
-        action_type = "KeyPress"
-        parameters["key"] = "space"
-        parameters["modifiers"] = []
-        decision_summary = "Dino game intent detected. Decided to press space to jump."
-    elif "System is running the pilot script" in observation_event.environment_state_summary:
-        action_type = "Log"
-        parameters["message"] = f"AIOS Agent observed pilot script running at {observation_event.timestamp.isoformat()}"
-        decision_summary = "Pilot script observed. Decided to log system status."
+    # --- Decide: LLM-based Decision Logic ---
+    print(f"Agent Decision: Requesting Core Agent LLM for action plan...")
     
-    print(f"Agent Decision: {decision_summary}")
-
-    return ActionPlan(
-        action_id=str(uuid.uuid4()),
-        origin_observation_id=observation_event.observation_id,
-        action_type=action_type,
-        parameters=parameters,
-        constraints=constraints,
-        dry_run=False # Changed to False for actual execution in demo
+    # Get a summary of graph memory for the LLM
+    # For now, a very basic summary; will be enhanced in future iterations
+    graph_memory_summary = (
+        f"Graph contains {len(graph_memory.graph_updates)} recorded updates. "
+        f"Most recent observation intent: {observation_event.potential_intent}. "
+        f"Most recent UI summary: {observation_event.ui_state_summary}."
     )
+
+    action_plan = request_core_agent_llm_action(
+        observation_event=observation_event,
+        graph_memory_summary=graph_memory_summary,
+        user_instruction=user_instruction,
+        llm_api_key=llm_api_key,
+        core_llm_prompt_filename=core_llm_prompt_filename
+    )
+    
+    print(f"Agent LLM decided action: {action_plan.action_type}")
+
+    return action_plan
 

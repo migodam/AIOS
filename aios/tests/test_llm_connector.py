@@ -1,16 +1,14 @@
 import pytest
 import uuid
 from pathlib import Path
-from unittest.mock import patch, MagicMock
-from requests import HTTPError
-import subprocess
-import time
-import requests
-import os
-import sys
+from unittest.mock import patch, MagicMock, mock_open
+import json
+import os # Added for path manipulation
 
 from aios.protocols.schema import RawSignal, ObservationEvent, ScreenshotData, UIATreeData, LogData
-from aios.protocols import llm_connector # Import the module itself
+from aios.protocols.llm_connector import request_protocol_llm_observation, request_core_agent_llm_action, _construct_prompt_from_raw_signals, _load_prompt_from_file
+from aios.llm.llm_client import LLMClient
+from aios.protocols.schema import ProtocolLLMOutput, ActionPlan
 
 # Mock RawSignal data for testing
 mock_screenshot_signal = RawSignal(
@@ -38,182 +36,145 @@ mock_log_signal = RawSignal(
     data=LogData(log_source="test_file.log", new_lines=["line1", "line2"])
 )
 
-# --- Fixture for Mock LLM Server ---
-@pytest.fixture(scope="module")
-def mock_llm_server():
-    """Starts and stops the mock LLM server for module-scoped tests."""
-    # Ensure Flask is installed in the test environment
-    try:
-        import flask
-    except ImportError:
-        pytest.skip("Flask not installed, skipping mock LLM server tests.")
+# Mock API Key for testing
+TEST_API_KEY = "test-api-key"
 
-    # Determine the path to the mock server script
-    server_script_path = Path(__file__).parent.parent / "utils" / "mock_llm_server.py"
-    if not server_script_path.exists():
-        pytest.fail(f"Mock LLM server script not found at {server_script_path}")
+@pytest.fixture
+def mock_llm_client():
+    """Mocks the LLMClient for isolated testing."""
+    with patch('aios.protocols.llm_connector.LLMClient') as MockLLMClient:
+        mock_instance = MockLLMClient.return_value
+        yield mock_instance
 
-    # Use the current Python executable from the virtual environment
-    python_executable = sys.executable
+@pytest.fixture
+def mock_protocol_llm_prompt():
+    """Mocks the content of the protocol LLM prompt file."""
+    with patch("builtins.open", mock_open(read_data="You are ProtocolLLM. Your task is to convert raw observation signals into structured ObservationEvent JSON.")) as m_open:
+        with patch("os.path.dirname", return_value="/mock/aios/protocols"): # Mock the base path
+            with patch("os.path.join", side_effect=lambda a,b: f"{a}/{b}"): # Mock path join for simplicity
+                yield m_open
 
-    # Start the server as a subprocess
-    print(f"\nStarting mock LLM server from: {server_script_path}")
-    process = subprocess.Popen(
-        [python_executable, "-m", "aios.utils.mock_llm_server"],
-        cwd=Path(__file__).parent.parent.parent, # Set CWD to project root for module import
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True # Decode stdout/stderr as text
-    )
-
-    # Wait for the server to start
-    server_ready = False
-    start_time = time.time()
-    while not server_ready and (time.time() - start_time < 10): # 10-second timeout
-        try:
-            # Pinging a known endpoint like "/" usually works for Flask
-            response = requests.get(llm_connector.LLM_API_ENDPOINT.replace("/v1/chat/completions", "/"), timeout=1)
-            if response.status_code == 200:
-                print("Mock LLM server is ready.")
-                server_ready = True
-        except requests.exceptions.ConnectionError:
-            time.sleep(0.5)
-        except Exception as e:
-            print(f"Error checking server readiness: {e}")
-            time.sleep(0.5)
-
-    if not server_ready:
-        process.terminate()
-        process.wait(timeout=2) # Give it a moment to terminate
-        stdout, stderr = process.communicate()
-        pytest.fail(
-            f"Mock LLM server failed to start within 10 seconds. "
-            f"Stdout: {stdout}\nStderr: {stderr}"
-        )
-
-    yield # Tests run here
-
-    # Stop the server
-    print("\nStopping mock LLM server.")
-    process.terminate()
-    try:
-        process.wait(timeout=5) # Wait for server to terminate
-    except subprocess.TimeoutExpired:
-        print("Mock LLM server did not terminate gracefully, killing it.")
-        process.kill()
-        process.wait() # Ensure it's killed
-
-    stdout, stderr = process.communicate()
-    if stdout:
-        print(f"Mock LLM Server Stdout: \n{stdout}")
-    if stderr:
-        print(f"Mock LLM Server Stderr: \n{stderr}")
+@pytest.fixture
+def mock_core_llm_prompt():
+    """Mocks the content of the core LLM prompt file."""
+    with patch("builtins.open", mock_open(read_data="You are CoreAgentLLM. You receive observations and memory to decide actions.")) as m_open:
+        with patch("os.path.dirname", return_value="/mock/aios/protocols"):
+            with patch("os.path.join", side_effect=lambda a,b: f"{a}/{b}"):
+                yield m_open
 
 # --- Tests ---
 
-def test_call_llm_api_mock_mode_success():
-    """Test call_llm_api in mock mode, success path."""
-    raw_signals = [mock_screenshot_signal, mock_uia_signal]
-    observation_event = llm_connector.call_llm_api(raw_signals, use_mock=True)
-    assert observation_event.raw_signals == raw_signals
-    assert "Desktop screenshot" in observation_event.ui_state_summary
-    assert "Test App" in observation_event.ui_state_summary
-    assert observation_event.potential_intent == "Waiting for user instructions."
-    assert observation_event.environment_state_summary == "System appears normal."
+# --- Tests for _load_prompt_from_file ---
+def test_load_prompt_from_file(mock_protocol_llm_prompt):
+    """Test loading a prompt from a file."""
+    prompt_content = _load_prompt_from_file("prompts/protocol_llm_prompt.txt")
+    assert "You are ProtocolLLM" in prompt_content
+    mock_protocol_llm_prompt.assert_called_once_with(os.path.join("/mock/aios", "prompts/protocol_llm_prompt.txt"), 'r', encoding='utf-8')
 
-def test_call_llm_api_mock_mode_with_log_signal():
-    """Test mock mode with a log signal present."""
-    raw_signals = [mock_log_signal]
-    observation_event = llm_connector.call_llm_api(raw_signals, use_mock=True)
-    assert "Recent logs show activity in test_file.log." in observation_event.environment_state_summary
-
-def test_call_llm_api_mock_mode_notepad_detection():
-    """Test mock mode with Notepad detected in UIA signal."""
-    raw_signals = [mock_uia_notepad_signal]
-    observation_event = llm_connector.call_llm_api(raw_signals, use_mock=True)
-    assert "Untitled - Notepad" in observation_event.ui_state_summary
-    assert observation_event.potential_intent == "Preparing to type."
-
-
-@patch('requests.post')
-def test_call_llm_api_live_mode_success(mock_post):
-    """Test call_llm_api in live mode, success path (mocking requests for isolation)."""
-    mock_response_json = {
-        "ui_state_summary": "LLM says: UI is good.",
-        "environment_state_summary": "LLM says: Env is healthy.",
-        "potential_intent": "LLM says: Intent is clear."
+# --- Tests for request_protocol_llm_observation ---
+def test_request_protocol_llm_observation_success(mock_llm_client, mock_protocol_llm_prompt):
+    """Test request_protocol_llm_observation success path."""
+    mock_llm_client.generate.return_value = {
+        "intent": "Test Intent",
+        "ui_state_summary": "Test UI Summary",
+        "confidence": 0.95
     }
-    mock_response = MagicMock()
-    mock_response.raise_for_status.return_value = None
-    mock_response.json.return_value = mock_response_json
-    mock_post.return_value = mock_response
-
-    raw_signals = [mock_screenshot_signal]
-    observation_event = llm_connector.call_llm_api(raw_signals, user_instruction="", use_mock=False)
-
-    mock_post.assert_called_once()
-    assert mock_post.call_args[0][0] == llm_connector.LLM_API_ENDPOINT
-    assert isinstance(observation_event, ObservationEvent)
-    assert observation_event.ui_state_summary == mock_response_json["ui_state_summary"]
-    assert observation_event.environment_state_summary == mock_response_json["environment_state_summary"]
-    assert observation_event.potential_intent == mock_response_json["potential_intent"]
-
-@patch('requests.post')
-def test_call_llm_api_live_mode_api_failure(mock_post):
-    """Test call_llm_api in live mode, API failure (mocking requests for isolation)."""
-    mock_post.side_effect = HTTPError("Mock HTTP Error")
-
-    raw_signals = [mock_screenshot_signal]
-    with pytest.raises(RuntimeError, match="LLM API call failed"):
-        llm_connector.call_llm_api(raw_signals, user_instruction="", use_mock=False)
     
-    mock_post.assert_called_once()
+    raw_signals = [mock_screenshot_signal]
+    observation_event = request_protocol_llm_observation(
+        raw_signals=raw_signals,
+        llm_api_key=TEST_API_KEY,
+        protocol_llm_prompt_filename="protocol_llm_prompt.txt",
+        user_instruction="User instruction test"
+    )
 
-@patch('requests.post')
-def test_call_llm_api_live_mode_invalid_response(mock_post):
-    """Test call_llm_api in live mode, invalid LLM response (schema validation, mocking requests)."""
-    mock_response_json = {
-        "ui_state_summary": "LLM says: UI is good.",
-        # Missing required 'potential_intent'
+    mock_llm_client.generate.assert_called_once()
+    args, kwargs = mock_llm_client.generate.call_args
+    assert kwargs['system_prompt'] == "You are ProtocolLLM. Your task is to convert raw observation signals into structured ObservationEvent JSON."
+    assert "User instruction test" in kwargs['user_prompt']
+    assert observation_event.potential_intent == "Test Intent"
+    assert observation_event.ui_state_summary == "Test UI Summary"
+    assert observation_event.raw_signals == raw_signals
+    assert isinstance(observation_event, ObservationEvent)
+
+def test_request_protocol_llm_observation_invalid_response_raises_error(mock_llm_client, mock_protocol_llm_prompt):
+    """Test request_protocol_llm_observation with invalid LLM response."""
+    mock_llm_client.generate.return_value = {
+        "intent": "Test Intent",
+        "ui_state_summary": "Test UI Summary",
+        # Missing confidence
     }
-    mock_response = MagicMock()
-    mock_response.raise_for_status.return_value = None
-    mock_response.json.return_value = mock_response_json
-    mock_post.return_value = mock_response
-
     raw_signals = [mock_screenshot_signal]
     with pytest.raises(RuntimeError, match="LLM response invalid"):
-        llm_connector.call_llm_api(raw_signals, user_instruction="", use_mock=False)
+        request_protocol_llm_observation(
+            raw_signals=raw_signals,
+            llm_api_key=TEST_API_KEY,
+            protocol_llm_prompt_filename="protocol_llm_prompt.txt"
+        )
+
+# --- Tests for request_core_agent_llm_action ---
+def test_request_core_agent_llm_action_success(mock_llm_client, mock_core_llm_prompt):
+    """Test request_core_agent_llm_action success path."""
+    mock_action_plan_id = str(uuid.uuid4())
+    mock_observation_id = str(uuid.uuid4())
+    mock_llm_client.generate.return_value = {
+        "action_id": mock_action_plan_id,
+        "origin_observation_id": mock_observation_id,
+        "action_type": "KeyPress",
+        "parameters": {"key": "enter"},
+        "constraints": {},
+        "dry_run": False
+    }
     
-    mock_post.assert_called_once()
+    observation_event = ObservationEvent(
+        observation_id=mock_observation_id,
+        raw_signals=[],
+        ui_state_summary="some ui",
+        environment_state_summary="some env",
+        potential_intent="some intent"
+    )
+    graph_memory_summary = "Graph summary here."
+    user_instruction = "Do something."
 
+    action_plan = request_core_agent_llm_action(
+        observation_event=observation_event,
+        graph_memory_summary=graph_memory_summary,
+        user_instruction=user_instruction,
+        llm_api_key=TEST_API_KEY,
+        core_llm_prompt_filename="core_llm_prompt.txt"
+    )
 
-# --- Real Integration Tests with Mock Server ---
+    mock_llm_client.generate.assert_called_once()
+    args, kwargs = mock_llm_client.generate.call_args
+    assert kwargs['system_prompt'] == "You are CoreAgentLLM. You receive observations and memory to decide actions."
+    assert "Graph summary here." in kwargs['user_prompt']
+    assert "Do something." in kwargs['user_prompt']
+    assert action_plan.action_type == "KeyPress"
+    assert action_plan.action_id == mock_action_plan_id
+    assert isinstance(action_plan, ActionPlan)
 
-def test_call_llm_api_integration_default(mock_llm_server):
-    """Test call_llm_api in live mode against the actual mock server (default response)."""
-    raw_signals = [mock_screenshot_signal, mock_uia_signal] # Not Notepad
-    observation_event = llm_connector.call_llm_api(raw_signals, user_instruction="", use_mock=False)
-
-    assert isinstance(observation_event, ObservationEvent)
-    assert observation_event.ui_state_summary == "Desktop is visible."
-    assert observation_event.potential_intent == "Waiting for user instructions."
-
-def test_call_llm_api_integration_dino_prompt(mock_llm_server):
-    """Test call_llm_api in live mode against the actual mock server (Chrome Dino prompt)."""
-    raw_signals = [mock_screenshot_signal, mock_uia_signal]
-    user_instruction = "Please play chrome dino."
-    observation_event = llm_connector.call_llm_api(raw_signals, user_instruction=user_instruction, use_mock=False)
-
-    assert isinstance(observation_event, ObservationEvent)
-    assert observation_event.ui_state_summary == "Google Chrome with Dino game is active."
-    assert observation_event.potential_intent == "Play Chrome Dino Game."
-
-def test_call_llm_api_integration_notepad_uia(mock_llm_server):
-    """Test call_llm_api in live mode against the actual mock server (Notepad in UIA)."""
-    raw_signals = [mock_screenshot_signal, mock_uia_notepad_signal]
-    observation_event = llm_connector.call_llm_api(raw_signals, user_instruction="", use_mock=False)
-    
-    assert isinstance(observation_event, ObservationEvent)
-    assert observation_event.ui_state_summary == "Notepad window is open and focused."
-    assert observation_event.potential_intent == "User wants to type in Notepad."
+def test_request_core_agent_llm_action_invalid_response_raises_error(mock_llm_client, mock_core_llm_prompt):
+    """Test request_core_agent_llm_action with invalid LLM response."""
+    mock_llm_client.generate.return_value = {
+        "action_id": str(uuid.uuid4()),
+        "origin_observation_id": str(uuid.uuid4()),
+        "action_type": "InvalidType", # Invalid action type
+        "parameters": {},
+        "constraints": {},
+        "dry_run": False
+    }
+    observation_event = ObservationEvent(
+        observation_id=str(uuid.uuid4()),
+        raw_signals=[],
+        ui_state_summary="some ui",
+        environment_state_summary="some env",
+        potential_intent="some intent"
+    )
+    with pytest.raises(RuntimeError, match="LLM response invalid"):
+        request_core_agent_llm_action(
+            observation_event=observation_event,
+            graph_memory_summary="summary",
+            user_instruction="instruction",
+            llm_api_key=TEST_API_KEY,
+            core_llm_prompt_filename="core_llm_prompt.txt"
+        )

@@ -26,52 +26,40 @@ def process_action_plan(action_plan: ActionPlan) -> VerifiedActionPlan:
         A VerifiedActionPlan object.
     """
     validation_messages: List[str] = []
-    is_safe = True
+    is_safe = True # Temporarily assuming safe as per user request
     actuator_preview = None
 
-    # --- Basic Validation ---
-    allowed_action_types = ["TypeString", "Log", "NoAction"]
-    if action_plan.action_type not in allowed_action_types:
-        is_safe = False
-        validation_messages.append(f"Invalid action_type: {action_plan.action_type}")
+    # --- Basic Validation (Temporarily Disabled for Debugging) ---
+    # Allowed action types are now part of the schema's Literal type, but keeping this for future reference
+    allowed_action_types_for_ref = ["TypeString", "KeyPress", "MouseClick", "Log", "NoAction"]
+    # if action_plan.action_type not in allowed_action_types_for_ref:
+    #     is_safe = False
+    #     validation_messages.append(f"Invalid action_type: {action_plan.action_type}")
     
-    if action_plan.action_type == "TypeString" and "text" not in action_plan.parameters:
-        is_safe = False
-        validation_messages.append("TypeString action missing required 'text' parameter.")
+    # if action_plan.action_type == "TypeString" and "text" not in action_plan.parameters:
+    #     is_safe = False
+    #     validation_messages.append("TypeString action missing required 'text' parameter.")
     
-    if action_plan.action_type == "Log" and "message" not in action_plan.parameters:
-        is_safe = False
-        validation_messages.append("Log action missing required 'message' parameter.")
+    # if action_plan.action_type == "Log" and "message" not in action_plan.parameters:
+    #     is_safe = False
+    #     validation_messages.append("Log action missing required 'message' parameter.")
 
-    # --- Constraint Enforcement & Safety Validation (Mock for Iteration 5) ---
+    # --- Constraint Enforcement & Safety Validation (Temporarily Disabled for Debugging) ---
     # The agent explicitly sets a safety_check flag.
-    if not action_plan.constraints.get("safety_check", True):
-        is_safe = False
-        validation_messages.append("Action plan explicitly marked as unsafe by agent constraints.")
+    # if not action_plan.constraints.get("safety_check", True):
+    #     is_safe = False
+    #     validation_messages.append("Action plan explicitly marked as unsafe by agent constraints.")
     
     # Example: Blacklist a dangerous action type if not explicitly allowed
-    if action_plan.action_type == "DeleteFiles" and "allow_delete" not in action_plan.constraints: # Example
-        is_safe = False
-        validation_messages.append("Action type 'DeleteFiles' is currently blacklisted for safety reasons.")
+    # if action_plan.action_type == "DeleteFiles" and "allow_delete" not in action_plan.constraints: # Example
+    #     is_safe = False
+    #     validation_messages.append("Action type 'DeleteFiles' is currently blacklisted for safety reasons.")
 
-    # --- Determine Status ---
-    if not is_safe:
-        status = "rejected_unsafe"
-        actuator_preview = "Action rejected due to safety violations."
-    elif action_plan.dry_run:
-        status = "dry_run_completed"
-        # Simulate what the actuator would do without actually doing it
-        if action_plan.action_type == "TypeString":
-            actuator_preview = f"Would type: '{action_plan.parameters.get('text', 'N/A')}'"
-        elif action_plan.action_type == "Log":
-            actuator_preview = f"Would log message: '{action_plan.parameters.get('message', 'N/A')}'"
-        elif action_plan.action_type == "NoAction":
-            actuator_preview = "Would take no action."
-        else:
-            actuator_preview = f"Would attempt to execute action type '{action_plan.action_type}'."
-    else:
-        status = "ready_for_execution"
-        actuator_preview = None # No preview needed for actual execution
+    # --- Determine Status (Bypassing Safety Checks as per user request) ---
+    # All actions are considered ready for execution.
+    status = "ready_for_execution"
+    actuator_preview = None # No preview needed for actual execution
+
 
     return VerifiedActionPlan(
         action_plan=action_plan,

@@ -35,21 +35,20 @@ class RawSignal(AIOSBaseModel):
     data: Union[ScreenshotData, UIATreeData, LogData]
 
 # --- Protocol1 Schema ---
+class ProtocolLLMOutput(BaseModel):
+    """
+    The structured output expected from the Protocol LLM.
+    """
+    intent: str
+    ui_state_summary: str
+    confidence: float = Field(..., ge=0.0, le=1.0) # Confidence score between 0 and 1
+
 class ObservationEvent(AIOSBaseModel):
     """A structured observation event, the output of Protocol1."""
     observation_id: str
     raw_signals: List[RawSignal]
     
     # Parsed and structured data (simulated by LLM/rules)
-    ui_state_summary: str
-    environment_state_summary: str
-    potential_intent: str
-
-class LLMResponseMock(AIOSBaseModel):
-    """
-    Mock structure for an LLM response that would contain structured
-    observation data. This helps in validating the mock output.
-    """
     ui_state_summary: str
     environment_state_summary: str
     potential_intent: str
@@ -86,7 +85,7 @@ class ActionPlan(AIOSBaseModel):
     action_type: Literal["TypeString", "KeyPress", "MouseClick", "Log", "NoAction"] # Explicitly list supported actions
     parameters: Union[TypeStringParameters, KeyPressParameters, MouseClickParameters, Dict[str, Any]] # Use Union for specific parameter models
     constraints: Dict[str, Any] = Field(default_factory=dict)
-    dry_run: bool = True
+    dry_run: bool = False
 
 # --- Actuator Schema ---
 class Receipt(AIOSBaseModel):

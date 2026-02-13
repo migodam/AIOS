@@ -22,11 +22,15 @@ def _run_aios_in_thread(gui_instance, user_instruction, api_key, on_complete_cal
         "--user_instruction", user_instruction,
     ]
     
-    # For now, always use mock LLM. This can be made configurable later.
-    command.extend(["--llm_use_mock", "True"])
-    
+    # LLM will now use real API.
+    # If no API key is provided, aios_demo.py should handle it (e.g., raise an error or use a default mock if designed).
     if api_key:
         command.extend(["--llm_api_key", api_key])
+    else:
+        # As per directive, no mock LLM is allowed. If API key is missing, aios_demo should fail.
+        # This message is just for clarity in GUI.
+        gui_instance.log_status("Warning: No LLM API Key provided. AIOS Demo might fail without it.")
+
 
     gui_instance.log_status(f"Executing: {' '.join(command)}")
     
