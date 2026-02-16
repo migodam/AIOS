@@ -52,7 +52,7 @@ def test_execute_action_log_success(mock_verified_action_plan, capsys):
     receipt = execute_action(mock_verified_action_plan)
     
     captured = capsys.readouterr()
-    assert "Actuator Log (Actual Execution): Test Log Message" in captured.out
+    assert "Actuator Log: Test Log Message" in captured.out
     assert receipt.status == "success"
     assert "Successfully logged message" in receipt.message
     assert receipt.latency_ms > 0
@@ -96,7 +96,7 @@ def test_execute_action_rejected_unsafe(mock_verified_action_plan):
         
         mock_keyboard.type.assert_not_called()
         assert receipt.status == "rejected_unsafe"
-        assert "Action was rejected by Protocol2 as unsafe." in receipt.message
+        assert "This is unsafe." in receipt.message # Message comes from validation_messages[0]
         assert receipt.latency_ms > 0
 
 def test_execute_action_typestring_missing_text(mock_verified_action_plan):
@@ -108,8 +108,8 @@ def test_execute_action_typestring_missing_text(mock_verified_action_plan):
 
     receipt = execute_action(mock_verified_action_plan)
     
-    assert receipt.status == "failure"
-    assert "TypeString action missing 'text' parameter." in receipt.message
+    assert receipt.status == "failed"
+    assert "TypeString action missing required 'text' parameter." in receipt.message
 
 def test_execute_action_unknown_action_type(mock_verified_action_plan):
     """Tests an unknown action type."""
@@ -119,5 +119,5 @@ def test_execute_action_unknown_action_type(mock_verified_action_plan):
 
     receipt = execute_action(mock_verified_action_plan)
     
-    assert receipt.status == "failure"
+    assert receipt.status == "failed"
     assert "Unknown action type for execution: 'UnknownAction'" in receipt.message

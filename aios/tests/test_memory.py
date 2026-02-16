@@ -5,7 +5,7 @@ from datetime import datetime
 import uuid
 
 from aios.memory.graph import GraphMemory
-from aios.protocols.schema import ObservationEvent, RawSignal, ScreenshotData, UIATreeData, GraphUpdate, LLMResponseMock
+from aios.protocols.schema import ObservationEvent, RawSignal, ScreenshotData, UIATreeData, GraphUpdate
 
 # --- Fixtures for reusable test data ---
 @pytest.fixture

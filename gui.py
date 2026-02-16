@@ -5,6 +5,7 @@ import threading
 import sys
 import os
 from pathlib import Path
+from aios.utils.params import desensitize_api_key # ADDED
 
 # --- Helper function to run AIOS demo as a subprocess ---
 def _run_aios_in_thread(gui_instance, user_instruction, api_key, on_complete_callback):
@@ -16,7 +17,7 @@ def _run_aios_in_thread(gui_instance, user_instruction, api_key, on_complete_cal
     python_executable = sys.executable
 
     # Prepare command with arguments
-    command = [
+    command_to_execute = [
         python_executable,
         str(aios_demo_path),
         "--user_instruction", user_instruction,
@@ -25,18 +26,28 @@ def _run_aios_in_thread(gui_instance, user_instruction, api_key, on_complete_cal
     # LLM will now use real API.
     # If no API key is provided, aios_demo.py should handle it (e.g., raise an error or use a default mock if designed).
     if api_key:
-        command.extend(["--llm_api_key", api_key])
+        command_to_execute.extend(["--llm_api_key", api_key])
     else:
         # As per directive, no mock LLM is allowed. If API key is missing, aios_demo should fail.
         # This message is just for clarity in GUI.
-        gui_instance.log_status("Warning: No LLM API Key provided. AIOS Demo might fail without it.")
+        gui_instance.log_status("Warning: No LLM API Key provided. AIOS Demo might fail without it (or use env var).")
 
-
-    gui_instance.log_status(f"Executing: {' '.join(command)}")
+    # Create a display command with a desensitized API key for logging
+    display_command = list(command_to_execute) # Copy the list
+    if api_key:
+        try:
+            # Find the API key in the command list and desensitize it
+            api_key_index = display_command.index("--llm_api_key") + 1
+            if api_key_index < len(display_command):
+                display_command[api_key_index] = desensitize_api_key(display_command[api_key_index])
+        except ValueError:
+            pass # --llm_api_key not found, or API key missing
+    
+    gui_instance.log_status(f"Executing: {' '.join(display_command)}")
     
     # Start the subprocess
     process = subprocess.Popen(
-        command,
+        command_to_execute,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT, # Redirect stderr to stdout
         text=True, # Decode stdout/stderr as text
@@ -96,7 +107,7 @@ class AIOSGui:
 
         self.run_button.config(state=tk.DISABLED)
         self.log_status("AIOS Demo started...")
-        self.log_status(f"LLM API Key: {'*' * len(api_key) if api_key else 'None Provided'}")
+        self.log_status(f"LLM API Key: {desensitize_api_key(api_key) if api_key else 'None Provided'}")
         self.log_status(f"User Instruction: {user_instruction}")
         
         # Start the AIOS demo in a separate thread

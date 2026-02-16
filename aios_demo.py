@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 from datetime import datetime
 import argparse # ADDED
+import os # ADDED
 
 # Ensure the project root is on the Python path for imports
 script_dir = Path(__file__).resolve().parent
@@ -38,7 +39,7 @@ def run_aios_cycle(run_id: str, artifact_base_dir: Path, user_instruction: str =
     CORE_LLM_PROMPT_FILENAME = "core_llm_prompt.txt"
 
     if not llm_api_key:
-        print("ERROR: LLM API Key is missing. Cannot proceed with real LLM.")
+        print("ERROR: LLM API Key is missing. Please provide it via --llm_api_key or set the OPENAI_API_KEY environment variable.")
         return False
 
     # Define paths for artifacts for this specific run
@@ -169,8 +170,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run the AIOS Demo Cycle.")
     parser.add_argument("--user_instruction", type=str, default="Demonstrating AIOS basic cycle",
                         help="User instruction for the AIOS agent.")
-    parser.add_argument("--llm_api_key", type=str, default=None, required=True, # Made API key required
-                        help="LLM API Key for real LLM calls.")
+    parser.add_argument("--llm_api_key", type=str, 
+                        default=os.environ.get("OPENAI_API_KEY"), # Read from env var
+                        help="LLM API Key for real LLM calls. Reads from OPENAI_API_KEY env var if not provided.")
 
     args = parser.parse_args()
 

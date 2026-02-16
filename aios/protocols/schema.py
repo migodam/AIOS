@@ -1,7 +1,7 @@
 from __future__ import annotations
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Literal, Union
+from typing import Any, Dict, List, Literal, Optional, Union
 
 from pydantic import BaseModel, Field
 
@@ -91,9 +91,14 @@ class ActionPlan(AIOSBaseModel):
 class Receipt(AIOSBaseModel):
     """A receipt returned by an Actuator after executing an action."""
     action_id: str
-    status: Literal["success", "failure", "rejected_unsafe", "dry_run_success"]
+    status: Literal["success", "failed", "rejected_unsafe", "dry_run_success"] # Updated status to "failed"
     message: str
-    latency_ms: float
+    latency_ms: float = 0.0 # Default to 0.0
+    error: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description="Detailed error information if status is 'failed'. Includes 'type', 'message', 'retryable'."
+    )
+
 
 # --- Event Stream Wrapper ---
 class EventType(str, Enum):
@@ -107,3 +112,8 @@ class Event(AIOSBaseModel):
     event_id: str
     event_type: EventType
     payload: Union[ObservationEvent, ActionPlan, Receipt, GraphUpdate] # ADDED GraphUpdate
+
+# Call model_rebuild() for models that might have forward references or were modified
+ActionPlan.model_rebuild()
+Receipt.model_rebuild()
+Event.model_rebuild() # Event also contains Receipt as payload

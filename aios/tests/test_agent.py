@@ -1,7 +1,7 @@
 import pytest
 import uuid
 from datetime import datetime
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from aios.protocols.schema import ObservationEvent, RawSignal, UIATreeData, ActionPlan, LogData, ScreenshotData
 from aios.memory.graph import GraphMemory
@@ -10,7 +10,7 @@ from aios.protocols.llm_connector import request_core_agent_llm_action # Import 
 
 @pytest.fixture
 def mock_graph_memory(tmp_path):
-    \"\"\"Fixture for a mock GraphMemory instance.\"\"\"
+    """Fixture for a mock GraphMemory instance."""
     graph_file = tmp_path / "mock_graph.json"
     return GraphMemory(graph_file)
 
@@ -24,12 +24,16 @@ def mock_observation_event():
         potential_intent="Mock intent"
     )
 
-@patch('aios.protocols.llm_connector.request_core_agent_llm_action')
+@pytest.fixture
+def mock_llm_connector_call():
+    with patch('aios.agent.main_agent.request_core_agent_llm_action') as mock_call: # Patch where it's used
+        yield mock_call
+
 def test_decide_action_calls_llm_connector(mock_llm_connector_call, mock_observation_event, mock_graph_memory):
-    \"\"\"
+    """
     Test that decide_action calls request_core_agent_llm_action with correct arguments
     and returns its result.
-    \"\"\"
+    """
     mock_action_plan = ActionPlan(
         action_id=str(uuid.uuid4()),
         origin_observation_id=mock_observation_event.observation_id,
@@ -54,9 +58,11 @@ def test_decide_action_calls_llm_connector(mock_llm_connector_call, mock_observa
 
     mock_llm_connector_call.assert_called_once_with(
         observation_event=mock_observation_event,
-        graph_memory_summary=f"Graph contains {len(mock_graph_memory.nodes)} nodes and {len(mock_graph_memory.edges)} edges. "
-                             f"Most recent observation intent: {mock_observation_event.potential_intent}. "
-                             f"Most recent UI summary: {mock_observation_event.ui_state_summary}.",
+        graph_memory_summary=(
+            f"Graph contains {len(mock_graph_memory.graph_updates)} recorded updates. "
+            f"Most recent observation intent: {mock_observation_event.potential_intent}. "
+            f"Most recent UI summary: {mock_observation_event.ui_state_summary}."
+        ),
         user_instruction=user_instruction,
         llm_api_key=llm_api_key,
         core_llm_prompt_filename=core_llm_prompt_filename
@@ -65,9 +71,9 @@ def test_decide_action_calls_llm_connector(mock_llm_connector_call, mock_observa
     assert isinstance(action_plan, ActionPlan)
 
 def test_decide_action_graph_summary_includes_current_observation(mock_llm_connector_call, mock_observation_event, mock_graph_memory):
-    \"\"\"
+    """
     Test that the graph memory summary passed to the LLM includes details from the current observation.
-    \"\"\"
+    """
     mock_llm_connector_call.return_value = ActionPlan(
         action_id=str(uuid.uuid4()),
         origin_observation_id=mock_observation_event.observation_id,
@@ -89,9 +95,9 @@ def test_decide_action_graph_summary_includes_current_observation(mock_llm_conne
     assert f"Most recent UI summary: {mock_observation_event.ui_state_summary}" in summary
 
 def test_decide_action_returns_llm_action_plan_on_no_action(mock_llm_connector_call, mock_observation_event, mock_graph_memory):
-    \"\"\"
+    """
     Test that decide_action correctly returns an ActionPlan even if the LLM decides 'NoAction'.
-    \"\"\"
+    """
     mock_action_plan_no_action = ActionPlan(
         action_id=str(uuid.uuid4()),
         origin_observation_id=mock_observation_event.observation_id,

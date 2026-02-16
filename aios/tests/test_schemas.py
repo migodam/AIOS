@@ -65,7 +65,7 @@ def test_action_plan_serialization():
     reloaded_plan = ActionPlan.model_validate_json(json_str)
 
     assert reloaded_plan.action_id == action_id
-    assert reloaded_plan.parameters["key"] == "space"
+    assert reloaded_plan.parameters.key == "space"
     assert reloaded_plan.dry_run is False
 
 def test_receipt_serialization():
@@ -109,7 +109,7 @@ def test_generic_event_wrapper_serialization():
 
 def test_receipt_invalid_status_raises_error():
     """Tests that an invalid 'status' literal for Receipt raises a ValidationError."""
-    with pytest.raises(ValidationError, match="Input should be 'success', 'failure', 'rejected_unsafe' or 'dry_run_success'"):
+    with pytest.raises(ValidationError, match="Input should be 'success', 'failed', 'rejected_unsafe' or 'dry_run_success'"):
         Receipt(action_id="123", status="pending", message="test", latency_ms=0.0)
 
 def test_screenshotdata_invalid_type_raises_error():

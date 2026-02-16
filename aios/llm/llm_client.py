@@ -41,9 +41,12 @@ class LLMClient:
                 model=self.model_name,
                 messages=messages,
                 temperature=self.temperature,
-                response_format=response_format if response_format else openai.NOT_SPECIFIED
+                response_format=response_format if response_format else {}
             )
             
+            if not completion.choices:
+                raise ValueError("LLM response contained no choices.")
+
             response_text = completion.choices[0].message.content
             logger.debug(f"Raw LLM response text: {response_text}")
             

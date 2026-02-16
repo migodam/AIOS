@@ -1,0 +1,293 @@
+{
+    "name": "",
+    "control_type": 50033,
+    "automation_id": "",
+    "class_name": "TkChild",
+    "process_id": 44296,
+    "is_enabled": 1,
+    "is_keyboard_focusable": 1,
+    "bounding_rectangle": [
+        285,
+        320,
+        900,
+        675
+    ],
+    "children": [
+        {
+            "name": "",
+            "control_type": 50033,
+            "automation_id": "",
+            "class_name": "TkChild",
+            "process_id": 44296,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 1,
+            "bounding_rectangle": [
+                404,
+                761,
+                662,
+                104
+            ],
+            "children": [
+                {
+                    "name": "",
+                    "control_type": 50033,
+                    "automation_id": "",
+                    "class_name": "TkChild",
+                    "process_id": 44296,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 1,
+                    "bounding_rectangle": [
+                        404,
+                        761,
+                        636,
+                        104
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "",
+                    "control_type": 50014,
+                    "automation_id": "",
+                    "class_name": "ScrollBar",
+                    "process_id": 44296,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 1,
+                    "bounding_rectangle": [
+                        1040,
+                        761,
+                        26,
+                        104
+                    ],
+                    "children": [
+                        {
+                            "name": "\u4e0a\u4e00\u884c",
+                            "control_type": 50000,
+                            "automation_id": "UpButton",
+                            "class_name": "",
+                            "process_id": 44296,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                1040,
+                                761,
+                                26,
+                                26
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "\u5411\u4e0a\u7ffb\u9875",
+                            "control_type": 50000,
+                            "automation_id": "UpPageButton",
+                            "class_name": "",
+                            "process_id": 44296,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                1040,
+                                786,
+                                26,
+                                27
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "\u4f4d\u7f6e",
+                            "control_type": 50027,
+                            "automation_id": "ScrollbarThumb",
+                            "class_name": "",
+                            "process_id": 44296,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                1040,
+                                813,
+                                26,
+                                26
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "\u4e0b\u4e00\u884c",
+                            "control_type": 50000,
+                            "automation_id": "DownButton",
+                            "class_name": "",
+                            "process_id": 44296,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                1040,
+                                839,
+                                26,
+                                26
+                            ],
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50006,
+            "automation_id": "",
+            "class_name": "Static",
+            "process_id": 44296,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                702,
+                726,
+                66,
+                35
+            ],
+            "children": []
+        },
+        {
+            "name": "",
+            "control_type": 50000,
+            "automation_id": "",
+            "class_name": "Button",
+            "process_id": 44296,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 1,
+            "bounding_rectangle": [
+                656,
+                666,
+                158,
+                45
+            ],
+            "children": []
+        },
+        {
+            "name": "",
+            "control_type": 50033,
+            "automation_id": "",
+            "class_name": "TkChild",
+            "process_id": 44296,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 1,
+            "bounding_rectangle": [
+                404,
+                450,
+                662,
+                201
+            ],
+            "children": [
+                {
+                    "name": "",
+                    "control_type": 50033,
+                    "automation_id": "",
+                    "class_name": "TkChild",
+                    "process_id": 44296,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 1,
+                    "bounding_rectangle": [
+                        404,
+                        450,
+                        636,
+                        201
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "",
+                    "control_type": 50014,
+                    "automation_id": "",
+                    "class_name": "ScrollBar",
+                    "process_id": 44296,
+                    "is_enabled": 0,
+                    "is_keyboard_focusable": 1,
+                    "bounding_rectangle": [
+                        1040,
+                        450,
+                        26,
+                        201
+                    ],
+                    "children": [
+                        {
+                            "name": "\u4e0a\u4e00\u884c",
+                            "control_type": 50000,
+                            "automation_id": "UpButton",
+                            "class_name": "",
+                            "process_id": 44296,
+                            "is_enabled": 0,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                1040,
+                                450,
+                                26,
+                                26
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "\u4e0b\u4e00\u884c",
+                            "control_type": 50000,
+                            "automation_id": "DownButton",
+                            "class_name": "",
+                            "process_id": 44296,
+                            "is_enabled": 0,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                1040,
+                                626,
+                                26,
+                                26
+                            ],
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50006,
+            "automation_id": "",
+            "class_name": "Static",
+            "process_id": 44296,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                659,
+                416,
+                152,
+                35
+            ],
+            "children": []
+        },
+        {
+            "name": "",
+            "control_type": 50033,
+            "automation_id": "",
+            "class_name": "TkChild",
+            "process_id": 44296,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 1,
+            "bounding_rectangle": [
+                470,
+                369,
+                531,
+                32
+            ],
+            "children": []
+        },
+        {
+            "name": "",
+            "control_type": 50006,
+            "automation_id": "",
+            "class_name": "Static",
+            "process_id": 44296,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                558,
+                335,
+                354,
+                35
+            ],
+            "children": []
+        }
+    ]
+}

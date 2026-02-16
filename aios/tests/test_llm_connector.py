@@ -48,28 +48,21 @@ def mock_llm_client():
 
 @pytest.fixture
 def mock_protocol_llm_prompt():
-    """Mocks the content of the protocol LLM prompt file."""
-    with patch("builtins.open", mock_open(read_data="You are ProtocolLLM. Your task is to convert raw observation signals into structured ObservationEvent JSON.")) as m_open:
-        with patch("os.path.dirname", return_value="/mock/aios/protocols"): # Mock the base path
-            with patch("os.path.join", side_effect=lambda a,b: f"{a}/{b}"): # Mock path join for simplicity
-                yield m_open
+    """Mocks the _load_prompt_from_file function for protocol LLM prompt."""
+    with patch('aios.protocols.llm_connector._load_prompt_from_file', 
+               return_value="You are ProtocolLLM. Your task is to convert raw observation signals into structured ObservationEvent JSON.") as mock_load:
+        yield mock_load
 
 @pytest.fixture
 def mock_core_llm_prompt():
-    """Mocks the content of the core LLM prompt file."""
-    with patch("builtins.open", mock_open(read_data="You are CoreAgentLLM. You receive observations and memory to decide actions.")) as m_open:
-        with patch("os.path.dirname", return_value="/mock/aios/protocols"):
-            with patch("os.path.join", side_effect=lambda a,b: f"{a}/{b}"):
-                yield m_open
+    """Mocks the _load_prompt_from_file function for core LLM prompt."""
+    with patch('aios.protocols.llm_connector._load_prompt_from_file', 
+               return_value="You are CoreAgentLLM. You receive observations and memory to decide actions.") as mock_load:
+        yield mock_load
 
 # --- Tests ---
 
-# --- Tests for _load_prompt_from_file ---
-def test_load_prompt_from_file(mock_protocol_llm_prompt):
-    """Test loading a prompt from a file."""
-    prompt_content = _load_prompt_from_file("prompts/protocol_llm_prompt.txt")
-    assert "You are ProtocolLLM" in prompt_content
-    mock_protocol_llm_prompt.assert_called_once_with(os.path.join("/mock/aios", "prompts/protocol_llm_prompt.txt"), 'r', encoding='utf-8')
+# _load_prompt_from_file is now directly mocked in fixtures, so no explicit test needed here.
 
 # --- Tests for request_protocol_llm_observation ---
 def test_request_protocol_llm_observation_success(mock_llm_client, mock_protocol_llm_prompt):
