@@ -1,0 +1,33 @@
+{
+    "name": "",
+    "control_type": 50026,
+    "automation_id": "prompt-textarea",
+    "class_name": "ProseMirror ProseMirror-focused",
+    "process_id": 26224,
+    "is_enabled": 1,
+    "is_keyboard_focusable": 1,
+    "bounding_rectangle": [
+        977,
+        1260,
+        934,
+        61
+    ],
+    "children": [
+        {
+            "name": "\u4ed6\u73b0\u5728\u4f1a",
+            "control_type": 50020,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 26224,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 0,
+            "bounding_rectangle": [
+                977,
+                1263,
+                97,
+                31
+            ],
+            "children": []
+        }
+    ]
+}

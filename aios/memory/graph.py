@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 import uuid
 
-from aios.protocols.schema import ObservationEvent, GraphUpdate # ADDED GraphUpdate
+from aios.protocols.schema import Event, EventType, ObservationEvent, GraphUpdate # ADDED GraphUpdate
 
 class GraphMemory:
     """
@@ -39,11 +39,16 @@ class GraphMemory:
             json.dump(data_to_save, f, indent=4)
         print(f"GraphMemory saved {len(self.graph_updates)} updates to {self.file_path}")
 
-    def update(self, observation: ObservationEvent) -> Optional[GraphUpdate]:
+    def update(self, event: Event) -> Optional[GraphUpdate]:
         """
         Updates the graph memory based on a new observation event.
         Generates a GraphUpdate if a significant change is detected.
         """
+        if event.event_type != EventType.OBSERVATION:
+            # For now, only OBSERVATION events trigger graph updates
+            return None
+
+        observation: ObservationEvent = event.payload
         generated_graph_update: Optional[GraphUpdate] = None
         summary_of_change = ""
 

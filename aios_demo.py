@@ -4,189 +4,167 @@ import time
 from pathlib import Path
 import sys
 from datetime import datetime
-import argparse # ADDED
-import os # ADDED
+import argparse
+import os
+from types import SimpleNamespace
 
-# Ensure the project root is on the Python path for imports
+# Ensure the project root is on the Python path
 script_dir = Path(__file__).resolve().parent
 if str(script_dir) not in sys.path:
     sys.path.insert(0, str(script_dir))
 
+# AIOS Core Imports
 from aios.protocols.schema import (
-    Event,
-    EventType,
-    GraphUpdate, # ADDED
+    Event, EventType, ActionPlan, TaskState, TaskResult,
+    ObservationEvent, KeyPressParameters, TypeStringParameters
 )
+from aios.protocols.action_protocol import VerifiedActionPlan, process_action_plan
 from aios.event_stream import JsonlLogger
 from aios.memory.graph import GraphMemory
 from aios.observers.screenshot import capture_screenshot
 from aios.observers.uia import get_focused_uia_tree
-from aios.protocols.llm_connector import request_protocol_llm_observation
-from aios.agent.main_agent import decide_action
-from aios.protocols.action_protocol import process_action_plan
-from aios.actuators.main_actuator import execute_action
+from aios.actuators.main_actuator import execute_action as real_execute_action
+from aios.llm.llm_client import LLMClient
+from aios.task_loop import TaskLoopController, CompletionJudge
 
-from aios.protocols.llm_connector import request_protocol_llm_observation, request_core_agent_llm_action # ADDED
+# This is the corrected flow. The actuator now uses the protocol.
+def combined_protocol_and_actuator(action_plan: ActionPlan) -> VerifiedActionPlan:
+    """
+    A single function that encapsulates the action protocol and actuator execution.
+    It's a simplified placeholder for a more robust component interaction.
+    """
+    verified_plan = process_action_plan(action_plan)
+    if verified_plan.status == "ready_for_execution":
+        return real_execute_action(verified_plan)
+    else:
+        # If the plan was rejected, create a receipt from the validation messages
+        from aios.protocols.schema import Receipt
+        return Receipt(
+            action_id=action_plan.action_id,
+            status=verified_plan.status,
+            message=verified_plan.validation_messages[0] if verified_plan.validation_messages else "Action rejected."
+        )
 
-def run_aios_cycle(run_id: str, artifact_base_dir: Path, user_instruction: str = "", llm_api_key: str = None):
-    """
-    Executes one full cycle of the AIOS: Observe -> Parse -> Learn -> Decide -> Plan -> Act.
-    """
-    print(f"\n--- Starting AIOS Cycle: {run_id} ---")
+# A simple observer placeholder
+class DemoObserver:
+    def __init__(self, artifacts_path: Path):
+        self.artifacts_path = artifacts_path
+
+    def observe(self) -> ObservationEvent:
+        screenshot_signal = capture_screenshot(self.artifacts_path)
+        uia_signal = get_focused_uia_tree(self.artifacts_path)
+        
+        ui_summary = "No UI summary"
+        if uia_signal and uia_signal.data:
+            ui_summary = f"Focused Window: {uia_signal.data.focused_window_title}"
+
+        return ObservationEvent(
+            observation_id=str(uuid.uuid4()),
+            raw_signals=[screenshot_signal, uia_signal],
+            ui_state_summary=ui_summary,
+            environment_state_summary=f"Time: {datetime.utcnow().isoformat()}",
+            potential_intent="User instruction execution"
+        )
+
+def run_aios_task(
+    run_id: str,
+    artifact_base_dir: Path,
+    user_instruction: str,
+    llm_api_key: str,
+    max_steps: int = 20,
+):
+    print(f"\n--- Starting AIOS Task: {run_id} ---")
     
-    # Define prompt filenames
-    PROTOCOL_LLM_PROMPT_FILENAME = "protocol_llm_prompt.txt"
-    CORE_LLM_PROMPT_FILENAME = "core_llm_prompt.txt"
-
-    if not llm_api_key:
-        print("ERROR: LLM API Key is missing. Please provide it via --llm_api_key or set the OPENAI_API_KEY environment variable.")
-        return False
-
-    # Define paths for artifacts for this specific run
     run_artifact_dir = artifact_base_dir / run_id
     run_artifact_dir.mkdir(parents=True, exist_ok=True)
     log_file_path = run_artifact_dir / "events.jsonl"
     graph_file_path = run_artifact_dir / "graph_memory.json"
     artifacts_path = run_artifact_dir / "artifacts"
     artifacts_path.mkdir(exist_ok=True)
-    
-    try: # Added try block
-        # 1. Initialize Components
-        print("\nStep 1: Initializing logger and graph memory...")
-        logger = JsonlLogger(log_file_path)
-        graph = GraphMemory(graph_file_path)
 
-        # 2. Run Observers
-        print("\nStep 2: Running observers (Screenshot and UIA)...")
-        raw_signals = []
-        try:
-            screenshot_signal = capture_screenshot(artifacts_path)
-            print(f"Successfully captured screenshot.")
-            raw_signals.append(screenshot_signal)
-        except Exception as e:
-            print(f"Screenshot capture failed: {e}")
+    if not llm_api_key:
+        print("ERROR: LLM API Key is missing.")
+        return TaskResult(status="failed", final_summary="LLM API Key missing.", artifacts_dir=str(run_artifact_dir))
 
-        try:
-            # We use max_depth=8 for robustness in pilot script
-            uia_signal = get_focused_uia_tree(artifacts_path, max_depth=8) # Increased max_depth
-            print(f"Successfully captured UIA tree for '{uia_signal.data.focused_window_title}'.")
-            raw_signals.append(uia_signal)
-        except Exception as e:
-            print(f"UIA tree capture failed: {e}")
-
-        if not raw_signals:
-            print("No raw signals collected. Skipping further steps.")
-            return False # Indicate failure to collect signals
-
-        # 3. Process Raw Signals with LLM Connector
-        print("\nStep 3: Processing raw signals with LLM Connector...")
-        # Use the new request_protocol_llm_observation
-        observation = request_protocol_llm_observation(
-            raw_signals=raw_signals,
-            user_instruction=user_instruction,
-            llm_api_key=llm_api_key,
-            protocol_llm_prompt_filename=PROTOCOL_LLM_PROMPT_FILENAME
-        )
-        print(f"LLM Connector produced ObservationEvent (ID: {observation.observation_id}).")
-
-        # 4. Wrap and Log Observation Event
-        print("\nStep 4: Wrapping and logging observation event...")
-        event_obs = Event(event_id=str(uuid.uuid4()), event_type=EventType.OBSERVATION, payload=observation)
-        logger.log_event(event_obs)
-
-        # 5. Update Graph Memory with the new observation
-        print("\nStep 5: Updating graph memory with observation...")
-        generated_graph_update = graph.update(observation) # Capture the generated GraphUpdate
-        graph.save()
-
-        # Log GraphUpdate if one was generated
-        if generated_graph_update:
-            event_graph_update = Event(event_id=str(uuid.uuid4()), event_type=EventType.GRAPH_UPDATE, payload=generated_graph_update)
-            logger.log_event(event_graph_update)
-            print(f"GraphMemory produced and logged GraphUpdate (ID: {generated_graph_update.observation_id}).")
-
-
-        # 6. Agent Decision-Making
-        print("\nStep 6: Agent deciding action...")
-        # Demonstrate graph querying in the Orient phase
-        recent_dino_context = graph.query(search_intent="Dino", limit=3)
-        print(f"Agent Orienting: Recent 'Dino' related graph updates: {[gu.summary_of_change for gu in recent_dino_context]}")
+    try:
+        print("\nStep 1: Initializing AIOS components...")
+        event_stream = JsonlLogger(log_file_path)
+        graph_memory = GraphMemory(graph_file_path)
+        llm_client = LLMClient(api_key=llm_api_key)
+        observer = DemoObserver(artifacts_path=artifacts_path)
         
-        action_plan = decide_action(
-            observation_event=observation,
-            graph_memory=graph,
-            user_instruction=user_instruction,
-            llm_api_key=llm_api_key,
-            core_llm_prompt_filename=CORE_LLM_PROMPT_FILENAME
+        # The protocol and actuator are now combined into a single logical unit for the demo
+        protocol_and_actuator = SimpleNamespace(
+            verify_and_execute=combined_protocol_and_actuator
         )
-        print(f"Agent produced ActionPlan (Type: {action_plan.action_type}).")
 
-        # 7. Wrap and Log ActionPlan Event
-        print("\nStep 7: Wrapping and logging action plan event...")
-        event_action = Event(event_id=str(uuid.uuid4()), event_type=EventType.ACTION, payload=action_plan)
-        logger.log_event(event_action)
-
-        # 8. Protocol2 Action Planning
-        print("\nStep 8: Protocol2 processing ActionPlan...")
-        verified_action_plan = process_action_plan(action_plan)
-        print(f"Protocol2 produced VerifiedActionPlan (Status: {verified_action_plan.status}).")
-
-        # 9. Wrap and Log VerifiedActionPlan Event (using ACTION type, but payload is VAP)
-        print("\nStep 9: Wrapping and logging verified action plan event...")
-        event_verified_action = Event(
-            event_id=str(uuid.uuid4()), 
-            event_type=EventType.ACTION, # Using ACTION type, payload is ActionPlan from VerifiedActionPlan
-            payload=verified_action_plan.action_plan 
+        completion_judge = CompletionJudge(
+            goal=user_instruction,
+            rule_based_checklist_config={}
         )
-        logger.log_event(event_verified_action)
 
-        # 10. Actuator Execution
-        print("\nStep 10: Actuator executing action...")
-        # Added prompt for Dino game if a jump action is planned
-        if (verified_action_plan.action_plan.action_type == "KeyPress" and 
-            verified_action_plan.action_plan.parameters.get("key") == "space" and
-            verified_action_plan.status == "ready_for_execution"):
-            print(">>> Please ensure the Chrome Dino game window is focused and ready to receive keyboard input (spacebar to jump) <<<")
-            time.sleep(1) # Give user a moment to focus the window
-
-        receipt = execute_action(verified_action_plan)
-        print(f"Actuator produced Receipt (Status: {receipt.status}, Message: {receipt.message}).")
-
-        # 11. Wrap and Log Receipt Event
-        print("\nStep 11: Wrapping and logging receipt event...")
-        event_receipt = Event(event_id=str(uuid.uuid4()), event_type=EventType.RECEIPT, payload=receipt)
-        logger.log_event(event_receipt)
+        print("\nStep 2: Initializing TaskLoopController...")
         
-        # 12. Verification - simplified for demo
-        print(f"\n--- AIOS Cycle: {run_id} Completed Successfully ---")
-        return True # Indicate success
+        # We need to adapt the TaskLoopController to this new combined interface
+        # For now, let's create a wrapper that fits the old model
+        class ProtocolWrapper:
+            def verify_action_plan(self, ap: ActionPlan) -> VerifiedActionPlan:
+                return process_action_plan(ap)
+        
+        class ActuatorWrapper:
+            def execute_action(self, vp: VerifiedActionPlan):
+                return real_execute_action(vp)
 
-    except Exception as e: # Catch any exceptions during the cycle
-        print(f"AIOS Cycle {run_id} failed: {e}")
-        return False # Indicate failure
+        task_controller = TaskLoopController(
+            user_instruction=user_instruction,
+            max_steps=max_steps,
+            artifacts_dir=run_artifact_dir,
+            llm_client=llm_client,
+            observer=observer,
+            action_protocol=ProtocolWrapper(),
+            actuator=ActuatorWrapper(),
+            event_stream=event_stream,
+            graph_memory=graph_memory,
+            completion_judge=completion_judge
+        )
+        
+        task_result = task_controller.run()
+        
+        print(f"\n--- AIOS Task: {run_id} Completed ---")
+        print(f"Task Result: {task_result.status}")
+        print(f"Final Summary: {task_result.final_summary}")
+        
+        graph_memory.save()
+        
+        return task_result
 
-    
+    except Exception as e:
+        print(f"AIOS Task {run_id} failed unexpectedly: {e}")
+        import traceback
+        traceback.print_exc()
+        return TaskResult(status="failed", final_summary=f"Unexpected error: {e}", artifacts_dir=str(run_artifact_dir))
+
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run the AIOS Demo Cycle.")
-    parser.add_argument("--user_instruction", type=str, default="Demonstrating AIOS basic cycle",
-                        help="User instruction for the AIOS agent.")
-    parser.add_argument("--llm_api_key", type=str, 
-                        default=os.environ.get("OPENAI_API_KEY"), # Read from env var
-                        help="LLM API Key for real LLM calls. Reads from OPENAI_API_KEY env var if not provided.")
-
+    parser = argparse.ArgumentParser(description="Run the AIOS Demo Task.")
+    parser.add_argument("--user_instruction", type=str, default="Open Notepad, create new file, type Hello AIOS", help="User instruction.")
+    parser.add_argument("--llm_api_key", type=str, default=os.environ.get("OPENAI_API_KEY"), help="LLM API Key.")
+    parser.add_argument("--max_steps", type=int, default=20, help="Maximum execution steps.")
     args = parser.parse_args()
 
-    # Create a unique run ID for this demonstration
     demo_run_id = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
-    base_artifact_dir = Path("./aios_demo_runs") # Store demo artifacts in a dedicated directory
-
+    base_artifact_dir = Path("./aios_demo_runs")
     print("--- Preparing AIOS Demo ---")
-    print(f"Demo artifacts will be stored in: {base_artifact_dir / demo_run_id}")
-    print("AIOS Demo will start in 5 seconds. Ensure no critical work is open.")
-    time.sleep(5) # Auto-start after a pause
+    print(f"Artifacts will be stored in: {base_artifact_dir / demo_run_id}")
+    print("Starting in 5 seconds...")
+    time.sleep(5)
     
-    run_aios_cycle(demo_run_id, base_artifact_dir, 
-                   user_instruction=args.user_instruction, 
-                   llm_api_key=args.llm_api_key)
+    final_task_result = run_aios_task(
+        run_id=demo_run_id,
+        artifact_base_dir=base_artifact_dir,
+        user_instruction=args.user_instruction,
+        llm_api_key=args.llm_api_key,
+        max_steps=args.max_steps
+    )
     print("\nAIOS Demo Finished.")
-    print(f"Check logs and artifacts in {base_artifact_dir / demo_run_id}")
+    print(f"Final Task Status: {final_task_result.status}")
+    print(f"Check logs and artifacts in {final_task_result.artifacts_dir}")

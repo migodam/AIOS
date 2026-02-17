@@ -5,7 +5,7 @@ from datetime import datetime
 import uuid
 
 from aios.memory.graph import GraphMemory
-from aios.protocols.schema import ObservationEvent, RawSignal, ScreenshotData, UIATreeData, GraphUpdate
+from aios.protocols.schema import ObservationEvent, RawSignal, ScreenshotData, UIATreeData, GraphUpdate, Event, EventType
 
 # --- Fixtures for reusable test data ---
 @pytest.fixture
@@ -57,6 +57,14 @@ def mock_observation_event_no_change():
         potential_intent="Waiting for instructions."
     )
 
+# --- Helper function to create an Event ---
+def create_observation_event(observation_payload: ObservationEvent) -> Event:
+    return Event(
+        event_id=str(uuid.uuid4()),
+        event_type=EventType.OBSERVATION,
+        payload=observation_payload
+    )
+
 # --- Tests for GraphMemory ---
 
 def test_graph_memory_init(temp_graph_file):
@@ -69,7 +77,8 @@ def test_graph_memory_init(temp_graph_file):
 def test_graph_memory_save_load(temp_graph_file, mock_observation_event_initial):
     """Test saving and loading graph memory."""
     graph = GraphMemory(temp_graph_file)
-    graph.update(mock_observation_event_initial)
+    event = create_observation_event(mock_observation_event_initial)
+    graph.update(event)
     graph.save()
 
     loaded_graph = GraphMemory(temp_graph_file)
@@ -81,7 +90,8 @@ def test_graph_memory_save_load(temp_graph_file, mock_observation_event_initial)
 def test_graph_memory_update_initial(temp_graph_file, mock_observation_event_initial):
     """Test update with the initial observation."""
     graph = GraphMemory(temp_graph_file)
-    graph_update = graph.update(mock_observation_event_initial)
+    event = create_observation_event(mock_observation_event_initial)
+    graph_update = graph.update(event)
 
     assert graph_update is not None
     assert len(graph.graph_updates) == 1
@@ -92,10 +102,10 @@ def test_graph_memory_update_initial(temp_graph_file, mock_observation_event_ini
 def test_graph_memory_update_changed_intent(temp_graph_file, mock_observation_event_initial, mock_observation_event_changed_intent):
     """Test update when intent changes."""
     graph = GraphMemory(temp_graph_file)
-    graph.update(mock_observation_event_initial) # First update
+    graph.update(create_observation_event(mock_observation_event_initial)) # First update
 
     # Second update with changed intent
-    graph_update = graph.update(mock_observation_event_changed_intent)
+    graph_update = graph.update(create_observation_event(mock_observation_event_changed_intent))
 
     assert graph_update is not None
     assert len(graph.graph_updates) == 2
@@ -106,10 +116,10 @@ def test_graph_memory_update_changed_intent(temp_graph_file, mock_observation_ev
 def test_graph_memory_update_changed_ui(temp_graph_file, mock_observation_event_initial, mock_observation_event_changed_ui):
     """Test update when UI summary changes."""
     graph = GraphMemory(temp_graph_file)
-    graph.update(mock_observation_event_initial) # First update
+    graph.update(create_observation_event(mock_observation_event_initial)) # First update
 
     # Second update with changed UI
-    graph_update = graph.update(mock_observation_event_changed_ui)
+    graph_update = graph.update(create_observation_event(mock_observation_event_changed_ui))
 
     assert graph_update is not None
     assert len(graph.graph_updates) == 2
@@ -120,10 +130,10 @@ def test_graph_memory_update_changed_ui(temp_graph_file, mock_observation_event_
 def test_graph_memory_update_no_change(temp_graph_file, mock_observation_event_initial, mock_observation_event_no_change):
     """Test update when no significant change occurs."""
     graph = GraphMemory(temp_graph_file)
-    graph.update(mock_observation_event_initial) # First update
+    graph.update(create_observation_event(mock_observation_event_initial)) # First update
 
     # Second update with no change
-    graph_update = graph.update(mock_observation_event_no_change)
+    graph_update = graph.update(create_observation_event(mock_observation_event_no_change))
 
     assert graph_update is None
     assert len(graph.graph_updates) == 1 # Only the initial update should be present
@@ -132,8 +142,8 @@ def test_graph_memory_update_no_change(temp_graph_file, mock_observation_event_i
 def test_graph_memory_query_all(temp_graph_file, mock_observation_event_initial, mock_observation_event_changed_intent):
     """Test querying all graph updates."""
     graph = GraphMemory(temp_graph_file)
-    graph.update(mock_observation_event_initial)
-    graph.update(mock_observation_event_changed_intent)
+    graph.update(create_observation_event(mock_observation_event_initial))
+    graph.update(create_observation_event(mock_observation_event_changed_intent))
 
     results = graph.query(limit=10)
     assert len(results) == 2
@@ -143,9 +153,9 @@ def test_graph_memory_query_all(temp_graph_file, mock_observation_event_initial,
 def test_graph_memory_query_filter_by_intent(temp_graph_file, mock_observation_event_initial, mock_observation_event_changed_intent, mock_observation_event_changed_ui):
     """Test querying graph updates filtered by intent."""
     graph = GraphMemory(temp_graph_file)
-    graph.update(mock_observation_event_initial) # Initial: Waiting for instructions
-    graph.update(mock_observation_event_changed_intent) # Changed: Play Chrome Dino Game
-    graph.update(mock_observation_event_changed_ui) # Changed: Waiting for instructions
+    graph.update(create_observation_event(mock_observation_event_initial)) # Initial: Waiting for instructions
+    graph.update(create_observation_event(mock_observation_event_changed_intent)) # Changed: Play Chrome Dino Game
+    graph.update(create_observation_event(mock_observation_event_changed_ui)) # Changed: Waiting for instructions
 
     results_dino = graph.query(search_intent="Dino", limit=10)
     assert len(results_dino) == 2
@@ -159,9 +169,9 @@ def test_graph_memory_query_filter_by_intent(temp_graph_file, mock_observation_e
 def test_graph_memory_query_limit(temp_graph_file, mock_observation_event_initial, mock_observation_event_changed_intent, mock_observation_event_changed_ui):
     """Test query limit functionality."""
     graph = GraphMemory(temp_graph_file)
-    graph.update(mock_observation_event_initial)
-    graph.update(mock_observation_event_changed_intent)
-    graph.update(mock_observation_event_changed_ui)
+    graph.update(create_observation_event(mock_observation_event_initial))
+    graph.update(create_observation_event(mock_observation_event_changed_intent))
+    graph.update(create_observation_event(mock_observation_event_changed_ui))
 
     results = graph.query(limit=2)
     assert len(results) == 2
