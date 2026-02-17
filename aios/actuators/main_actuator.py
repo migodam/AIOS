@@ -58,7 +58,22 @@ def _execute_keypress(params: KeyPressParameters) -> Tuple[str, str]:
 
 def _execute_typestring(params: TypeStringParameters) -> Tuple[str, str]:
     keyboard = KeyboardController()
-    keyboard.type(params.text)
+    
+    # Select all (Ctrl+A)
+    keyboard.press(Key.ctrl)
+    keyboard.press('a')
+    keyboard.release('a')
+    keyboard.release(Key.ctrl)
+    time.sleep(0.1) # Short delay for OS to process selection
+
+    # Delete selected text
+    keyboard.press(Key.delete)
+    keyboard.release(Key.delete)
+    time.sleep(0.1) # Short delay for OS to process deletion
+    
+    for char in params.text:
+        keyboard.type(char)
+        time.sleep(0.01) # Small delay after each character
     return "success", f"Successfully typed string: '{params.text}'"
 
 def _execute_mouse_click(params: MouseClickParameters) -> Tuple[str, str]:

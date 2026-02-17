@@ -20,6 +20,10 @@ class TaskState(AIOSBaseModel):
     step_index: int = 0
     max_steps: int = 20 # Configurable max steps for this task run
     stuck_threshold: int = 5 # How many repeated actions/observations to consider stuck
+    target_hwnd: Optional[int] = None # NEW: Targeted window handle for automation
+    target_pid: Optional[int] = None  # NEW: Targeted process ID for automation
+    verify_attempts: int = 0 # NEW: Counter for text verification attempts
+    retype_attempts: int = 0  # NEW: Counter for retyping attempts
 
 class TaskResult(AIOSBaseModel):
     """Represents the final outcome of a multi-step task."""
