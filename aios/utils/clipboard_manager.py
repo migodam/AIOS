@@ -10,9 +10,9 @@ def get_clipboard_text() -> Optional[str]:
     """
     try:
         win32clipboard.OpenClipboard(None)
-        if win32clipboard.IsClipboardFormatAvailable(win32con.CF_TEXT):
-            data = win32clipboard.GetClipboardData(win32con.CF_TEXT)
-            return data.decode('utf-8')
+        if win32clipboard.IsClipboardFormatAvailable(win32con.CF_UNICODETEXT):
+            data = win32clipboard.GetClipboardData(win32con.CF_UNICODETEXT)
+            return data
         return None
     except Exception as e:
         print(f"ClipboardManager: Error getting clipboard text: {e}")

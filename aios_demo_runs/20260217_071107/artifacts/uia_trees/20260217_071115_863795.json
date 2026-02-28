@@ -1,0 +1,652 @@
+{
+    "name": "*Fuck You 3, notepad,\u9009\u62e9\u4e0d\u4fdd\u5b58 - Notepad",
+    "control_type": 50032,
+    "automation_id": "",
+    "class_name": "Notepad",
+    "process_id": 8508,
+    "is_enabled": 1,
+    "is_keyboard_focusable": 1,
+    "bounding_rectangle": [
+        228,
+        228,
+        1926,
+        998
+    ],
+    "children": [
+        {
+            "name": "",
+            "control_type": 50033,
+            "automation_id": "",
+            "class_name": "NotepadTextBox",
+            "process_id": 8508,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 1,
+            "bounding_rectangle": [
+                237,
+                340,
+                1908,
+                829
+            ],
+            "children": [
+                {
+                    "name": "\u6587\u672c\u7f16\u8f91\u5668",
+                    "control_type": 50030,
+                    "automation_id": "",
+                    "class_name": "RichEditD2DPT",
+                    "process_id": 8508,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 1,
+                    "bounding_rectangle": [
+                        237,
+                        340,
+                        1908,
+                        829
+                    ],
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50033,
+            "automation_id": "",
+            "class_name": "Microsoft.UI.Content.DesktopChildSiteBridge",
+            "process_id": 8508,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 1,
+            "bounding_rectangle": [
+                297,
+                242,
+                791,
+                48
+            ],
+            "children": [
+                {
+                    "name": "",
+                    "control_type": 50033,
+                    "automation_id": "",
+                    "class_name": "InputSiteWindowClass",
+                    "process_id": 8508,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        297,
+                        242,
+                        791,
+                        48
+                    ],
+                    "children": [
+                        {
+                            "name": "",
+                            "control_type": 50018,
+                            "automation_id": "Tabs",
+                            "class_name": "Microsoft.UI.Xaml.Controls.TabView",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                297,
+                                242,
+                                791,
+                                48
+                            ],
+                            "children": [
+                                {
+                                    "name": "",
+                                    "control_type": 50008,
+                                    "automation_id": "TabListView",
+                                    "class_name": "ListView",
+                                    "process_id": 8508,
+                                    "is_enabled": 1,
+                                    "is_keyboard_focusable": 0,
+                                    "bounding_rectangle": [
+                                        300,
+                                        242,
+                                        731,
+                                        48
+                                    ],
+                                    "children": []
+                                },
+                                {
+                                    "name": "\u6dfb\u52a0\u65b0\u6807\u7b7e\u9875",
+                                    "control_type": 50000,
+                                    "automation_id": "AddButton",
+                                    "class_name": "Button",
+                                    "process_id": 8508,
+                                    "is_enabled": 1,
+                                    "is_keyboard_focusable": 1,
+                                    "bounding_rectangle": [
+                                        1036,
+                                        249,
+                                        48,
+                                        36
+                                    ],
+                                    "children": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50033,
+            "automation_id": "",
+            "class_name": "Microsoft.UI.Content.DesktopChildSiteBridge",
+            "process_id": 8508,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 1,
+            "bounding_rectangle": [
+                237,
+                290,
+                1908,
+                50
+            ],
+            "children": [
+                {
+                    "name": "",
+                    "control_type": 50033,
+                    "automation_id": "",
+                    "class_name": "InputSiteWindowClass",
+                    "process_id": 8508,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        237,
+                        290,
+                        1908,
+                        50
+                    ],
+                    "children": [
+                        {
+                            "name": "",
+                            "control_type": 50010,
+                            "automation_id": "MenuBar",
+                            "class_name": "",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                237,
+                                290,
+                                252,
+                                48
+                            ],
+                            "children": [
+                                {
+                                    "name": "\u6587\u4ef6",
+                                    "control_type": 50011,
+                                    "automation_id": "File",
+                                    "class_name": "Microsoft.UI.Xaml.Controls.MenuBarItem",
+                                    "process_id": 8508,
+                                    "is_enabled": 1,
+                                    "is_keyboard_focusable": 1,
+                                    "bounding_rectangle": [
+                                        243,
+                                        290,
+                                        72,
+                                        48
+                                    ],
+                                    "children": []
+                                },
+                                {
+                                    "name": "\u7f16\u8f91",
+                                    "control_type": 50011,
+                                    "automation_id": "Edit",
+                                    "class_name": "Microsoft.UI.Xaml.Controls.MenuBarItem",
+                                    "process_id": 8508,
+                                    "is_enabled": 1,
+                                    "is_keyboard_focusable": 1,
+                                    "bounding_rectangle": [
+                                        327,
+                                        290,
+                                        72,
+                                        48
+                                    ],
+                                    "children": []
+                                },
+                                {
+                                    "name": "\u67e5\u770b",
+                                    "control_type": 50011,
+                                    "automation_id": "View",
+                                    "class_name": "Microsoft.UI.Xaml.Controls.MenuBarItem",
+                                    "process_id": 8508,
+                                    "is_enabled": 1,
+                                    "is_keyboard_focusable": 1,
+                                    "bounding_rectangle": [
+                                        411,
+                                        290,
+                                        72,
+                                        48
+                                    ],
+                                    "children": []
+                                }
+                            ]
+                        },
+                        {
+                            "name": "\u6807\u9898",
+                            "control_type": 50000,
+                            "automation_id": "",
+                            "class_name": "Microsoft.UI.Xaml.Controls.DropDownButton",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 1,
+                            "bounding_rectangle": [
+                                969,
+                                290,
+                                84,
+                                48
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "\u5217\u8868",
+                            "control_type": 50000,
+                            "automation_id": "",
+                            "class_name": "Microsoft.UI.Xaml.Controls.DropDownButton",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 1,
+                            "bounding_rectangle": [
+                                1053,
+                                290,
+                                84,
+                                48
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "\u52a0\u7c97(Ctrl+B)",
+                            "control_type": 50000,
+                            "automation_id": "",
+                            "class_name": "ToggleButton",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 1,
+                            "bounding_rectangle": [
+                                1137,
+                                290,
+                                48,
+                                48
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "\u659c\u4f53(Ctrl+I)",
+                            "control_type": 50000,
+                            "automation_id": "",
+                            "class_name": "ToggleButton",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 1,
+                            "bounding_rectangle": [
+                                1185,
+                                290,
+                                48,
+                                48
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "\u94fe\u63a5(Ctrl+K)",
+                            "control_type": 50000,
+                            "automation_id": "",
+                            "class_name": "ToggleButton",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 1,
+                            "bounding_rectangle": [
+                                1233,
+                                290,
+                                48,
+                                48
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "\u8868",
+                            "control_type": 50000,
+                            "automation_id": "",
+                            "class_name": "Microsoft.UI.Xaml.Controls.DropDownButton",
+                            "process_id": 8508,
+                            "is_enabled": 0,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                1281,
+                                290,
+                                84,
+                                48
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "\u6e05\u9664\u683c\u5f0f\u8bbe\u7f6e(Ctrl+\u7a7a\u683c)",
+                            "control_type": 50000,
+                            "automation_id": "",
+                            "class_name": "ToggleButton",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 1,
+                            "bounding_rectangle": [
+                                1365,
+                                290,
+                                48,
+                                48
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "\u8bbe\u7f6e",
+                            "control_type": 50000,
+                            "automation_id": "SettingsButton",
+                            "class_name": "Button",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 1,
+                            "bounding_rectangle": [
+                                2088,
+                                290,
+                                45,
+                                48
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "",
+                            "control_type": 50032,
+                            "automation_id": "PrivacyTeachingTip",
+                            "class_name": "Microsoft.UI.Xaml.Controls.TeachingTip",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                0,
+                                0,
+                                0,
+                                0
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "",
+                            "control_type": 50032,
+                            "automation_id": "CowriterTeachingTip",
+                            "class_name": "Microsoft.UI.Xaml.Controls.TeachingTip",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                0,
+                                0,
+                                0,
+                                0
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "",
+                            "control_type": 50033,
+                            "automation_id": "PsDownloadDetailTeachingTip",
+                            "class_name": "Microsoft.UI.Xaml.Controls.TeachingTip",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                0,
+                                0,
+                                0,
+                                0
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "\u672c\u5730\u6a21\u578b\u5fc5\u987b\u5b8c\u6210\u4e0b\u8f7d\u624d\u53ef\u5728\u6ce8\u9500\u540e\u4f7f\u7528 AI \u529f\u80fd\u3002",
+                            "control_type": 50033,
+                            "automation_id": "PsDownloadLightTeachingTip",
+                            "class_name": "Microsoft.UI.Xaml.Controls.TeachingTip",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                0,
+                                0,
+                                0,
+                                0
+                            ],
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50033,
+            "automation_id": "",
+            "class_name": "Microsoft.UI.Content.DesktopChildSiteBridge",
+            "process_id": 8508,
+            "is_enabled": 0,
+            "is_keyboard_focusable": 1,
+            "bounding_rectangle": [
+                237,
+                1169,
+                1908,
+                48
+            ],
+            "children": [
+                {
+                    "name": "",
+                    "control_type": 50033,
+                    "automation_id": "",
+                    "class_name": "InputSiteWindowClass",
+                    "process_id": 8508,
+                    "is_enabled": 0,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        237,
+                        1169,
+                        1908,
+                        48
+                    ],
+                    "children": [
+                        {
+                            "name": "\u884c 1\uff0c\n\u5217 26",
+                            "control_type": 50020,
+                            "automation_id": "ContentTextBlock",
+                            "class_name": "TextBlock",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                261,
+                                1181,
+                                105,
+                                24
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "25 \u4e2a\u5b57\u7b26\uff0c\u5171 25 \u4e2a",
+                            "control_type": 50020,
+                            "automation_id": "ContentTextBlock",
+                            "class_name": "TextBlock",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                395,
+                                1181,
+                                163,
+                                24
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "\u7eaf\u6587\u672c",
+                            "control_type": 50020,
+                            "automation_id": "ContentTextBlock",
+                            "class_name": "TextBlock",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                698,
+                                1169,
+                                72,
+                                48
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": "\u7f29\u653e",
+                            "control_type": 50020,
+                            "automation_id": "ContentTextBlock",
+                            "class_name": "TextBlock",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                1589,
+                                1181,
+                                49,
+                                24
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": " Windows (CRLF)",
+                            "control_type": 50020,
+                            "automation_id": "ContentTextBlock",
+                            "class_name": "TextBlock",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                1691,
+                                1181,
+                                134,
+                                24
+                            ],
+                            "children": []
+                        },
+                        {
+                            "name": " UTF-8",
+                            "control_type": 50020,
+                            "automation_id": "ContentTextBlock",
+                            "class_name": "TextBlock",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 0,
+                            "bounding_rectangle": [
+                                1943,
+                                1181,
+                                53,
+                                24
+                            ],
+                            "children": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "",
+            "control_type": 50037,
+            "automation_id": "",
+            "class_name": "",
+            "process_id": 8508,
+            "is_enabled": 1,
+            "is_keyboard_focusable": 1,
+            "bounding_rectangle": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "children": [
+                {
+                    "name": "\u7cfb\u7edf",
+                    "control_type": 50010,
+                    "automation_id": "MenuBar",
+                    "class_name": "",
+                    "process_id": 8508,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 1,
+                    "bounding_rectangle": [
+                        239,
+                        239,
+                        33,
+                        33
+                    ],
+                    "children": [
+                        {
+                            "name": "\u7cfb\u7edf",
+                            "control_type": 50011,
+                            "automation_id": "",
+                            "class_name": "",
+                            "process_id": 8508,
+                            "is_enabled": 1,
+                            "is_keyboard_focusable": 1,
+                            "bounding_rectangle": [
+                                239,
+                                239,
+                                33,
+                                33
+                            ],
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "name": "\u6700\u5c0f\u5316",
+                    "control_type": 50000,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 8508,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        1934,
+                        229,
+                        71,
+                        44
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "\u6700\u5927\u5316",
+                    "control_type": 50000,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 8508,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        2005,
+                        229,
+                        70,
+                        44
+                    ],
+                    "children": []
+                },
+                {
+                    "name": "\u5173\u95ed",
+                    "control_type": 50000,
+                    "automation_id": "",
+                    "class_name": "",
+                    "process_id": 8508,
+                    "is_enabled": 1,
+                    "is_keyboard_focusable": 0,
+                    "bounding_rectangle": [
+                        2075,
+                        229,
+                        71,
+                        44
+                    ],
+                    "children": []
+                }
+            ]
+        }
+    ]
+}

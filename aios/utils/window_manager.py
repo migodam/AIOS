@@ -4,28 +4,28 @@ import win32process
 import win32con
 from typing import Optional, Tuple, List
 
-def get_notepad_window_info() -> Tuple[Optional[int], Optional[int]]:
+def get_notepad_window_info(target_pid: Optional[int] = None) -> Tuple[Optional[int], Optional[int]]:
     """
-    Finds the HWND and PID of the first Notepad window found.
+    Finds the HWND and PID of a Notepad window, optionally filtered by PID.
     Returns (hwnd, pid) or (None, None) if not found.
     """
-    target_hwnd = None
-    target_pid = None
+    found_hwnd = None
+    found_pid = None
 
     def enum_windows_callback(hwnd, extra):
-        nonlocal target_hwnd, target_pid
+        nonlocal found_hwnd, found_pid
         if win32gui.IsWindowVisible(hwnd) and win32gui.GetClassName(hwnd) == "Notepad":
             text = win32gui.GetWindowText(hwnd)
-            # Ensure it's an actual Notepad instance, not some other window named "Notepad"
             if "notepad" in text.lower(): 
-                tid, pid = win32process.GetWindowThreadProcessId(hwnd)
-                target_hwnd = hwnd
-                target_pid = pid
-                return False # Stop enumeration
+                tid, current_pid = win32process.GetWindowThreadProcessId(hwnd)
+                if target_pid is None or current_pid == target_pid:
+                    found_hwnd = hwnd
+                    found_pid = current_pid
+                    return False # Stop enumeration
         return True
 
     win32gui.EnumWindows(enum_windows_callback, None)
-    return target_hwnd, target_pid
+    return found_hwnd, found_pid
 
 def ensure_foreground_window(hwnd: int):
     """
@@ -60,4 +60,10 @@ def ensure_foreground_window(hwnd: int):
 
     except Exception as e:
         print(f"WindowManager: Error ensuring foreground for window {hwnd}: {e}")
+
+def is_foreground(hwnd: int) -> bool:
+    """
+    Checks if the window with the given HWND is currently the foreground window.
+    """
+    return win32gui.GetForegroundWindow() == hwnd
 

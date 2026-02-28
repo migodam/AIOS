@@ -24,6 +24,9 @@ class TaskState(AIOSBaseModel):
     target_pid: Optional[int] = None  # NEW: Targeted process ID for automation
     verify_attempts: int = 0 # NEW: Counter for text verification attempts
     retype_attempts: int = 0  # NEW: Counter for retyping attempts
+    expected_typed_text: Optional[str] = None # NEW: The text expected to be typed, extracted from user goal
+    subgoals: List[Dict[str, Any]] = Field(default_factory=list) # NEW: Decomposed subgoals for LLM planning
+    current_subgoal_index: int = 0 # NEW: Index of the currently active subgoal
 
 class TaskResult(AIOSBaseModel):
     """Represents the final outcome of a multi-step task."""

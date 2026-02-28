@@ -8,6 +8,9 @@ from pydantic import BaseModel, ValidationError
 from pynput.keyboard import Controller as KeyboardController, Key
 from pynput.mouse import Controller as MouseController, Button
 
+import win32clipboard # NEW IMPORT
+import win32con # NEW IMPORT
+
 from aios.protocols.action_protocol import VerifiedActionPlan
 from aios.protocols.schema import (
     Receipt,
@@ -24,7 +27,7 @@ def _get_key_from_string(key_str: str) -> Any:
     key_map = {
         "space": Key.space, "enter": Key.enter, "esc": Key.esc, "tab": Key.tab,
         "up": Key.up, "down": Key.down, "left": Key.left, "right": Key.right,
-        "alt": Key.alt, "ctrl": Key.ctrl, "shift": Key.shift, "win": Key.cmd,
+        "alt": Key.alt, "ctrl": Key.ctrl, "control": Key.ctrl, "shift": Key.shift, "win": Key.cmd,
         "f1": Key.f1, "f2": Key.f2, "f3": Key.f3, "f4": Key.f4, "f5": Key.f5, "f6": Key.f6,
         "f7": Key.f7, "f8": Key.f8, "f9": Key.f9, "f10": Key.f10, "f11": Key.f11, "f12": Key.f12,
         "delete": Key.delete, "backspace": Key.backspace, "caps_lock": Key.caps_lock,
@@ -59,22 +62,26 @@ def _execute_keypress(params: KeyPressParameters) -> Tuple[str, str]:
 def _execute_typestring(params: TypeStringParameters) -> Tuple[str, str]:
     keyboard = KeyboardController()
     
-    # Select all (Ctrl+A)
-    keyboard.press(Key.ctrl)
-    keyboard.press('a')
-    keyboard.release('a')
-    keyboard.release(Key.ctrl)
-    time.sleep(0.1) # Short delay for OS to process selection
-
-    # Delete selected text
-    keyboard.press(Key.delete)
-    keyboard.release(Key.delete)
-    time.sleep(0.1) # Short delay for OS to process deletion
+    # Place text on clipboard
+    try:
+        win32clipboard.OpenClipboard(None)
+        win32clipboard.EmptyClipboard()
+        win32clipboard.SetClipboardData(win32con.CF_UNICODETEXT, params.text)
+    except Exception as e:
+        return "failed", f"Failed to put text on clipboard: {e}"
+    finally:
+        win32clipboard.CloseClipboard()
     
-    for char in params.text:
-        keyboard.type(char)
-        time.sleep(0.01) # Small delay after each character
-    return "success", f"Successfully typed string: '{params.text}'"
+    time.sleep(0.1) # Give clipboard time to update
+
+    # Paste (Ctrl+V)
+    keyboard.press(Key.ctrl)
+    keyboard.press('v')
+    keyboard.release('v')
+    keyboard.release(Key.ctrl)
+    time.sleep(0.1) # Give OS time to process paste
+
+    return "success", f"Successfully pasted string: '{params.text}'"
 
 def _execute_mouse_click(params: MouseClickParameters) -> Tuple[str, str]:
     mouse = MouseController()
