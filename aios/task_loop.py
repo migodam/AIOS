@@ -91,20 +91,18 @@ class TaskLoopController:
         self.artifacts_dir = artifacts_dir
         
         # --- Dynamic Text Extraction ---
-        match = re.search(r'(?:输入|type)\s+([^,，\n]+)', user_instruction, re.IGNORECASE)
-        expected_text = "Hello AIOS" # Default fallback
-        if match:
-            extracted_text = match.group(1).strip()
-            # If the instruction contains "打个招呼", and the LLM decomposition was "Hello"
-            # It's better to explicitly say "Hello" or what the LLM will actually type.
-            # For now, default to the most common greeting.
-            if "打个招呼" in user_instruction and extracted_text.lower() == "打个招呼".lower():
-                 expected_text = "Hello" # Assuming LLM translates "打个招呼" to "Hello"
-            else:
-                 expected_text = extracted_text
-        elif "打个招呼" in user_instruction:
-            expected_text = "Hello" # Fallback if regex doesn't catch it correctly but '打个招呼' is present
+        # Try to find "type in X", "type X", or "输入 X"
+        match_type_in = re.search(r'(?:type in|输入)\s+([^,，\n]+)', user_instruction, re.IGNORECASE)
+        match_type = re.search(r'(?:type)\s+([^,，\n]+)', user_instruction, re.IGNORECASE)
 
+        if match_type_in:
+            expected_text = match_type_in.group(1).strip()
+        elif match_type:
+            expected_text = match_type.group(1).strip()
+        elif "打个招呼" in user_instruction:
+            expected_text = "Hello" # Fallback for this specific phrase
+        else:
+            expected_text = "Hello AIOS" # Default fallback
         self.task_state = TaskState(
             goal=user_instruction, 
             max_steps=max_steps,

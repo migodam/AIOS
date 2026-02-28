@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+env/
+venv/
+*egg-info/
+
+# Gemini CLI
+.gemini/
+state_snapshot
+*.log
+*.tmp
+
+# AIOS Generated Artifacts
+aios_demo_runs/
+Report*.md
+api.txt # If it contains sensitive information
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
